@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1794525744 source:c:\users\administrator\documents\github\proyecto esportss\proyecto esport\login.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"modelos.h"
+	"Login.h"
+
+1794525744 c:\users\administrator\documents\github\proyecto esportss\proyecto esport\modelos.h
+
+1794525744 c:\users\administrator\documents\github\proyecto esportss\proyecto esport\login.h
+
+1794525744 source:c:\users\administrator\documents\github\proyecto esportss\proyecto esport\main.c
+	"Login.h"
+
