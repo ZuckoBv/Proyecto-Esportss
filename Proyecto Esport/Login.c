@@ -5,52 +5,47 @@
 #include "modelos.h"
 #include "Login.h"
 
+
 //PROTOTIPADOS-------------------------------------------------
 int loginOperador();
 //-------------------------------------------------------------
 
-void login ()
+void mostrarMenuAcceso()
 {
-    int acceso=loginOperador();
-    if(acceso==0)
-    {
-        return 0;
-    }
-    printf("Interior del programa.\n");
+    printf("\n========================================");
+    printf("\n             NEXUS ARENA");
+    printf("\n========================================");
+    printf("\n  [1]  Ingresar");
+    printf("\n  [2]  Crear cuenta");
+    printf("\n  [3]  Iniciar sesion como administrador");
+    printf("\n  [0]  Salir");
+    printf("\n========================================");
+    printf("\n  Seleccione una opcion: ");
 }
 
-//FUNCIONES----------------------------------------------------
-int loginOperador()
+int login()
 {
-    char clave[10];
-    int intentos=3;
-    int flag=0;
+    int opcion = -1;
+    int acceso = ACCESO_FALLIDO;
 
-    while(intentos>=1 && flag==0)
+    while(opcion != 0 && acceso == ACCESO_FALLIDO)
     {
-        printf("Inserte clave:\n");
-        scanf(" %9s", clave);
+        mostrarMenuAcceso();
+        scanf("%d", &opcion);
 
-        if(strcmp(clave, CLAVE)==0)
+        switch(opcion)
         {
-            printf("Acceso concedido! Exito!\n\n");
-            flag =1;
+        case 1:
+            printf("\nIngresar: pendiente.\n");
+            break;
+        case 2:
+            printf("\nCrear cuenta: pendiente.\n");
+            break;
+        case 3:
+            printf("\nAdministrador: pendiente.\n");
+            break;
         }
-
-        else
-        {
-            intentos--;
-            printf("Clave incorrecta, quedan %d intentos.\n", intentos);
-        }
-
-        if(intentos<1)
-        {
-            printf("[Acceso denegado]\n");
-        }
-
-
     }
 
-    return flag;
-
+    return acceso;
 }
