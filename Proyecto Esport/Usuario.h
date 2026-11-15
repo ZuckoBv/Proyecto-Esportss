@@ -1,7 +1,8 @@
 #ifndef USUARIO_H_INCLUDED
 #define USUARIO_H_INCLUDED
 #include <string.h>
-
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct stPersona
 {
@@ -19,8 +20,11 @@ typedef struct
     Persona persona;
 }Usuario;
 
-void leerString(char arreglo,int dim);
-void cargarPersona();
-void cargarUsaurio();
-void cargarUsuarioArchivo(char nombreArchivo);
+void leerString(char arreglo[],int dim);
+Persona cargarPersona();
+Usuario cargarUsaurio();
+void cargarUsuarioArchivo(char nombreArchivo[]);
+void mostrarUsuario(Usuario a);
+void mostrarUsuarioArchivo(char nombreArchivo[]);
+void sistemaUsuario();
 #endif // USUARIO_H_INCLUDED

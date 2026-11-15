@@ -1,22 +1,49 @@
 #include "usuario.h"
 
 
-int main()
+void sistemaUsuario()
 {
+    int num=-1;
     char nombreArchivoUsuario[]="usuario.bin";
-    return 0;
+    while(num!=0)
+    {
+        printf("\n========================================");
+        printf("\n          SISTEMA DE USUARIOS");
+        printf("\n========================================");
+        printf("\n");
+        printf("\n  [1]  Cargar nuevo usuario");
+        printf("\n  [2]  Mostrar usuarios");
+        printf("\n");
+        printf("\n  [0]  Salir");
+        printf("\n");
+        printf("\n========================================");
+        printf("\n  Seleccione una opcion: ");
+        scanf("%d", &num);
+
+        switch(num)
+        {
+        case 1:
+            cargarUsuarioArchivo(nombreArchivoUsuario);
+            break;
+        case 2:
+            mostrarUsuarioArchivo(nombreArchivoUsuario);
+            break;
+        }
+
+    }
 }
 
-void leerString(char arreglo,int dim)
+void leerString(char arreglo[],int dim)
 {
-    fgets(arreglo,dimm,stdin);
+    fgets(arreglo,dim,stdin);
     arreglo[strcspn(arreglo,"\n")]='\0';
 }
 
-void cargarPersona()
+Persona cargarPersona()
 {
     Persona a;
     printf("\nIngrese el DNI: ");
+    while (getchar() != '\n');
     leerString(a.dni,15);
     printf("\nIngrese el Nombre: ");
     leerString(a.nombre,50);
@@ -29,7 +56,7 @@ void cargarPersona()
     return a;
 }
 
-void cargarUsaurio()
+Usuario cargarUsaurio()
 {
     Usuario u;
     u.persona=cargarPersona();
@@ -40,7 +67,7 @@ void cargarUsaurio()
     return u;
 }
 
-void cargarUsuarioArchivo(char nombreArchivo)
+void cargarUsuarioArchivo(char nombreArchivo[])
 {
     char letra='s';
     Usuario a;
@@ -48,23 +75,58 @@ void cargarUsuarioArchivo(char nombreArchivo)
     if(buffer==NULL)
     {
         printf("\nEl archivo no abrio");
-        return -1;
+        return;
     }
     //trabajo
     while(letra=='s')
     {
         a=cargarUsaurio();
         fwrite(&a,sizeof(Usuario),1,buffer);
-        system("pause");
-        system ("cls")
-        printf("\nDesea seguir cargando usuarios");
+        printf("\nDesea seguir cargando usuarios s/n? ");
         scanf(" %c", &letra);
         system("pause");
-        system ("cls")
+        system ("cls");
     }
 
     //fin
     fclose(buffer);
 }
 
-s
+void mostrarUsuario(Usuario a)
+{
+    printf("\n");
+    printf("  +------------------------------------------+\n");
+    printf("  |              DATOS DEL USUARIO           |\n");
+    printf("  +------------------------------------------+\n");
+    printf("  |                                          |\n");
+    printf("  |  > Usuario:   %s\n", a.usuario);
+    printf("  |  > Nombre:    %s\n", a.persona.nombre);
+    printf("  |  > DNI:       %s\n", a.persona.dni);
+    printf("  |  > Telefono:  %s\n", a.persona.telefono);
+    printf("  |  > Direccion: %s\n", a.persona.direccion);
+    printf("  |  > Rol:       %s\n", a.persona.rol);
+    printf("  |                                          |\n");
+    printf("  +------------------------------------------+\n");
+}
+
+
+void mostrarUsuarioArchivo(char nombreArchivo[])
+{
+    Usuario a;
+    FILE *buffer = fopen(nombreArchivo, "rb");
+    if(buffer == NULL)
+    {
+        printf("\nEl archivo no abrio correctamente");
+        return;
+    }
+    //trabajo
+    while(fread(&a,sizeof(Usuario),1,buffer)==1)
+    {
+        mostrarUsuario(a);
+
+    }
+    system("pause");
+    system("cls");
+    //fin
+    fclose(buffer);
+}

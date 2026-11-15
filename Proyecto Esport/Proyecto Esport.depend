@@ -10,6 +10,15 @@
 
 1794525744 c:\users\administrator\documents\github\proyecto esportss\proyecto esport\login.h
 
-1794525744 source:c:\users\administrator\documents\github\proyecto esportss\proyecto esport\main.c
+1794767733 source:c:\users\administrator\documents\github\proyecto esportss\proyecto esport\main.c
 	"Login.h"
+	"Usuario.h"
+
+1794769110 c:\users\administrator\documents\github\proyecto esportss\proyecto esport\usuario.h
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+
+1794769080 source:c:\users\administrator\documents\github\proyecto esportss\proyecto esport\usuario.c
+	"usuario.h"
 
