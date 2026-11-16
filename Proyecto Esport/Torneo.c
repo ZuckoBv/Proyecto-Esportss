@@ -5,8 +5,6 @@ void sistemaTorneo()
 {
     int opcion;
 
-    const char ARCHIVOTORNEO[]= "Torneo.bin";
-
     do
     {
 
@@ -44,15 +42,18 @@ void sistemaTorneo()
 
 }
 
-Torneo crearTorneo()
+Torneo crearTorneo(const char nombreArchivoTorneo [])
 {
     Torneo torneo;
-
-    printf ("Ingrese el ID del torneo: \n");
+    int valido = 0;
     while (getchar() != '\n');
-    leerString (torneo.idTorneo, 10);
 
-    //FUNCION POR SI YA EXISTE EL ID
+    while (valido == 0)
+    {
+        printf ("Ingrese el ID del torneo: \n");                   //Bucle para no repetir ID
+        leerString (torneo.idTorneo, 10);
+        valido = validarIdTorneo (nombreArchivoTorneo, torneo.idTorneo);
+    }
 
     printf ("Ingrese el nombre del torneo: \n");
     leerString (torneo.nombre, 50);
@@ -75,37 +76,34 @@ Torneo crearTorneo()
     scanf ("%d", &torneo.cuposDisponibles);
     printf ("Ingrese el premio: \n");
     scanf ("%f", &torneo.premioTotal);
+    while (getchar() != '\n');
     printf ("Estado del torneo: (Abierto, En Curso, Finalizado)\n");
     leerString (torneo.estado, 15);
 
     return torneo;
 }
 
-void cargarTorneoArchivo (const char nombreArchivo [])
+void cargarTorneoArchivo (const char nombreArchivoTorneo [])
 {
     char letra = 's';
     Torneo torneo;
 
-    FILE* archivo = fopen (nombreArchivo, "ab");
-
-    if(archivo==NULL)
-    {
-        printf("\nEl archivo no abrio");
-        return;
-    }
-
     while(letra == 's' || letra == 'S')
-
     {
-        torneo = crearTorneo();
+        torneo = crearTorneo(nombreArchivoTorneo);              //Creo torneo y valido ID
+
+        FILE* archivo = fopen (nombreArchivoTorneo, "ab");
+        if(archivo==NULL)
+        {
+            printf("\nEl archivo no abrio");                   //Abro archivo, guardo y cierro
+            return;
+        }
         fwrite(&torneo, sizeof(Torneo), 1, archivo);
+        fclose(archivo);
+
         printf("\nDesea agregar mas torneos s/n? ");
         scanf(" %c", &letra);
-
-//        system("pause");
-//        system ("cls");
     }
-    fclose(archivo);
 }
 
 void mostrarTorneo (Torneo torneo)
@@ -122,11 +120,11 @@ void mostrarTorneo (Torneo torneo)
     printf("\n========================================");
 }
 
-void mostrarTorneosArchivo (const char nombreArchivo [])
+void mostrarTorneosArchivo (const char nombreArchivoTorneo [])
 {
     Torneo torneo;
 
-    FILE* archivo = fopen (nombreArchivo, "rb");
+    FILE* archivo = fopen (nombreArchivoTorneo, "rb");
 
     if (archivo == NULL)
     {
@@ -136,8 +134,34 @@ void mostrarTorneosArchivo (const char nombreArchivo [])
 
     while (fread (&torneo, sizeof (Torneo), 1, archivo) == 1)
     {
-      mostrarTorneo (torneo);
+        mostrarTorneo (torneo);
     }
 
     fclose (archivo);
+}
+
+int validarIdTorneo (const char nombreArchivoTorneo [], char idNuevoTorneo [] )
+{
+    Torneo torneo;
+
+    FILE* archivo = fopen (nombreArchivoTorneo, "rb");
+
+    if (archivo == NULL)
+    {
+        printf ("Error al intentar abrir el archivo\n");
+        return 1;
+    }
+
+    while (fread (&torneo, sizeof (Torneo), 1, archivo) == 1)
+    {
+        if (strcmp (torneo.idTorneo, idNuevoTorneo) == 0)                 // Comparar con todos los ID
+        {
+            printf ("Ya existe ese ID \n");
+            fclose (archivo);
+            return 0;
+        }
+    }
+
+    fclose (archivo);
+    return 1;
 }

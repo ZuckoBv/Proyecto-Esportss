@@ -6,10 +6,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+const char ARCHIVOTORNEO[]= "Torneo.bin";
+
 void sistemaTorneo();
-Torneo crearTorneo();
-void cargarTorneoArchivo (const char nombreArchivo []);
+Torneo crearTorneo(const char nombreArchivoTorneo []);
+void cargarTorneoArchivo (const char nombreArchivoTorneo []);
 void mostrarTorneo (Torneo torneo);
-void mostrarTorneosArchivo (const char nombreArchivo []);
+void mostrarTorneosArchivo (const char nombreArchivoTorneo []);
+int validarIdTorneo (const char nombreArchivoTorneo [], char idNuevoTorneo [] );
 
 #endif // TORNEO_H_INCLUDED

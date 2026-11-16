@@ -45,10 +45,11 @@
 1794792418 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\usuario.c
 	"usuario.h"
 
-1794844094 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.c
+1794862888 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.c
 	"Torneo.h"
+	"Usuario.h"
 
-1794844042 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.h
+1794862930 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.h
 	"modelos.h"
 	<string.h>
 	<stdio.h>
