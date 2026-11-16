@@ -9,5 +9,7 @@
 void sistemaTorneo();
 Torneo crearTorneo();
 void cargarTorneoArchivo (const char nombreArchivo []);
+void mostrarTorneo (Torneo torneo);
+void mostrarTorneosArchivo (const char nombreArchivo []);
 
 #endif // TORNEO_H_INCLUDED

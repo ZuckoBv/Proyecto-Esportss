@@ -7,13 +7,15 @@ void sistemaTorneo()
 
     const char ARCHIVOTORNEO[]= "Torneo.bin";
 
-    do {
+    do
+    {
 
         printf("\n========================================");
         printf("\n          SISTEMA DE TORNEOS");
         printf("\n========================================");
         printf("\n");
         printf("\n  [1]  Cargar nuevo torneo ");
+        printf("\n  [2]  Mostrar todos los torneos ");
         printf("\n");
         printf("\n  [0]  Salir");
         printf("\n");
@@ -27,7 +29,7 @@ void sistemaTorneo()
             break;
 
         case 2:
-
+            mostrarTorneosArchivo (ARCHIVOTORNEO);
             break;
 
         case 0:
@@ -37,11 +39,10 @@ void sistemaTorneo()
         default:
             printf ("\n Opcion invalida");
         }
-    }  while(opcion!=0);
+    }
+    while(opcion!=0);
 
 }
-
-
 
 Torneo crearTorneo()
 {
@@ -85,7 +86,7 @@ void cargarTorneoArchivo (const char nombreArchivo [])
     char letra = 's';
     Torneo torneo;
 
-    FILE* archivo = fopen (nombreArchivo , "ab");
+    FILE* archivo = fopen (nombreArchivo, "ab");
 
     if(archivo==NULL)
     {
@@ -105,4 +106,38 @@ void cargarTorneoArchivo (const char nombreArchivo [])
 //        system ("cls");
     }
     fclose(archivo);
+}
+
+void mostrarTorneo (Torneo torneo)
+{
+    printf("\n========================================");
+    printf ("\n ID: %s", torneo.idTorneo);
+    printf ("\n Nombre: %s", torneo.nombre);
+    printf ("\n Videojuego: %s (ID: %s)", torneo.juego.nombre, torneo.juego.idJuego);
+    printf ("\n Fecha: %d|%d|%d ", torneo.fechaInicio.dia, torneo.fechaInicio.mes, torneo.fechaInicio.anio);
+    printf ("\n Capacidad maxima del torneo: %d", torneo.capacidadMaxima);
+    printf ("\n Cupos disponibles: %d", torneo.cuposDisponibles);
+    printf ("\n Premio: $%.2f", torneo.premioTotal);
+    printf ("\n Estado: %s", torneo.estado);
+    printf("\n========================================");
+}
+
+void mostrarTorneosArchivo (const char nombreArchivo [])
+{
+    Torneo torneo;
+
+    FILE* archivo = fopen (nombreArchivo, "rb");
+
+    if (archivo == NULL)
+    {
+        printf ("Error al intentar abrir el archivo\n");
+        return;
+    }
+
+    while (fread (&torneo, sizeof (Torneo), 1, archivo) == 1)
+    {
+      mostrarTorneo (torneo);
+    }
+
+    fclose (archivo);
 }
