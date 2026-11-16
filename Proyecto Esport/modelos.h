@@ -9,13 +9,13 @@ typedef struct stVideojuego {
     char plataforma[20];
 } Videojuego;
 
-typedef struct stUsuario {
-    char idUsuario[10]; // ID de jugador único
-    char nickname[30];
-    char email[50];
-    char pais[30];
-    int nivel; // Nivel de experiencia (ej. 1 a 10)
-} Usuario;
+//typedef struct stUsuario {
+//    char idUsuario[10]; // ID de jugador único
+//    char nickname[30];
+//    char email[50];                   TEMPORAL
+//    char pais[30];
+//    int nivel; // Nivel de experiencia (ej. 1 a 10)
+//} Usuario;
 
 typedef struct stAdministrador {
     char usuario[20]; // Usuario para el login

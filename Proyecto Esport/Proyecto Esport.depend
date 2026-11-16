@@ -22,3 +22,36 @@
 1794769080 source:c:\users\administrator\documents\github\proyecto esportss\proyecto esport\usuario.c
 	"usuario.h"
 
+1794792418 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\login.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"modelos.h"
+	"Login.h"
+
+1794843213 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\modelos.h
+
+1794792418 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\login.h
+
+1794844094 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\main.c
+	"Login.h"
+	"Usuario.h"
+	"Torneo.h"
+
+1794792418 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\usuario.h
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+
+1794792418 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\usuario.c
+	"usuario.h"
+
+1794844094 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.c
+	"Torneo.h"
+
+1794844042 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.h
+	"modelos.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+

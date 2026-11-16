@@ -42,6 +42,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Login.h" />
+		<Unit filename="Torneo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Torneo.h" />
 		<Unit filename="Usuario.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
