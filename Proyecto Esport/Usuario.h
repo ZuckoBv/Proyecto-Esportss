@@ -10,16 +10,16 @@ typedef struct stPersona
     char nombre[50];
     char telefono[20];
     char direccion[30];
-    char rol[15];
 } Persona;
 
 typedef struct
 {
+    char idUsuario[15];
     char usuario[20];
     char contrasenia[20];
     Persona persona;
 }Usuario;
-
+int verificarId(char nombreArchivo[],char idUsario[]);
 void leerString(char arreglo[],int dim);
 Persona cargarPersona();
 Usuario cargarUsaurio();
@@ -27,4 +27,5 @@ void cargarUsuarioArchivo(char nombreArchivo[]);
 void mostrarUsuario(Usuario a);
 void mostrarUsuarioArchivo(char nombreArchivo[]);
 void sistemaUsuario();
+void mostrarNombreUsuario(char nombreArchivo[]);
 #endif // USUARIO_H_INCLUDED
