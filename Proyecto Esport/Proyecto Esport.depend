@@ -22,12 +22,13 @@
 1794769080 source:c:\users\administrator\documents\github\proyecto esportss\proyecto esport\usuario.c
 	"usuario.h"
 
-1794875735 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\login.c
+1794921664 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\login.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"modelos.h"
 	"Login.h"
+	"Admin.h"
 
 1794875735 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\modelos.h
 
@@ -45,22 +46,26 @@
 1794875735 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\usuario.c
 	"usuario.h"
 
-1794875735 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.c
+1794924464 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.c
 	"Torneo.h"
 	"Usuario.h"
+	"gestionvideojuegos.h"
 
-1794875735 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.h
+1794924945 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\torneo.h
 	"modelos.h"
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
 
-1794878111 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\codigogestionjuegos.c
+1794882057 source:c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\codigogestionjuegos.c
 	"gestionvideojuegos.h"
 
-1794878029 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\gestionvideojuegos.h
+1794924387 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\gestionvideojuegos.h
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
+	"modelos.h"
+
+1794921664 c:\users\user\desktop\facultad\tecnicatura programacion\2do cuatrimestre\program\program mango\tp grupal\proyecto-esportss\proyecto esport\admin.h
 	"modelos.h"
 

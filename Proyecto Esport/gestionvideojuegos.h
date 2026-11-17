@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "modelos.h"
 
-const char ARCHIVOVIDEOJUEGO[]= "Videojuego.bin";
+#define ARCHIVOVIDEOJUEGO "Videojuegos.bin"
 
 int cargarHardcodeadosAlArchivo(char nombreArchivoJuegos[]);
 int obtenDimArchivoVideojuegos(char nombreArchivoJuegos[]);

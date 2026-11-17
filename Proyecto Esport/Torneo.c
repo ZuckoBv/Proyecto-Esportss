@@ -24,7 +24,7 @@ void sistemaTorneo()
         switch (opcion)
         {
         case 1:
-            cargarTorneoArchivo (ARCHIVOTORNEO);
+            cargarTorneoArchivo (ARCHIVOTORNEO, ARCHIVOVIDEOJUEGO);
             break;
 
         case 2:
@@ -32,7 +32,7 @@ void sistemaTorneo()
             break;
 
         case 0:
-
+            return;
             break;
 
         default:
@@ -43,10 +43,11 @@ void sistemaTorneo()
 
 }
 
-Torneo crearTorneo(const char nombreArchivoTorneo [])
+Torneo crearTorneo(const char nombreArchivoTorneo [], const char nombreArchivoVideojuego[])
 {
     Torneo torneo;
     int valido = 0;
+    int juegoValido = 0;
     while (getchar() != '\n');
 
     while (valido == 0)
@@ -59,9 +60,20 @@ Torneo crearTorneo(const char nombreArchivoTorneo [])
     printf ("Ingrese el nombre del torneo: \n");
     leerString (torneo.nombre, 50);
 
-    mostrarVideojuegosDisponibles (ARCHIVOVIDEOJUEGO);
-    printf ("Escriba el ID del videojuego a agregar: \n");
-    //FUNCION PARA GUARDAR TODOS LOS DATOS DEL JUEGO AL TORNEO
+    mostrarVideojuegosDisponibles (nombreArchivoVideojuego);
+    while (juegoValido != 1)
+{
+    printf("Escriba el ID del videojuego a agregar: \n");
+    leerString (torneo.juego.idJuego, 10);
+                                                                                        //Validar ID videojuego
+    juegoValido = buscarVideojuegoPorId(nombreArchivoVideojuego, torneo.juego.idJuego, &torneo.juego);
+
+    if (juegoValido == 0) {
+        printf("Ese ID de videojuego no existe. Elija uno de la lista.\n");
+    } else if (juegoValido == -1) {
+        break;
+    }
+}
 
     printf ("Ingrese la fecha: \n");
     printf ("  Dia: ");
@@ -84,14 +96,14 @@ Torneo crearTorneo(const char nombreArchivoTorneo [])
     return torneo;
 }
 
-void cargarTorneoArchivo (const char nombreArchivoTorneo [])
+void cargarTorneoArchivo (const char nombreArchivoTorneo [], const char nombreArchivoVideojuego[])
 {
     char letra = 's';
     Torneo torneo;
 
     while(letra == 's' || letra == 'S')
     {
-        torneo = crearTorneo(nombreArchivoTorneo);              //Creo torneo y valido ID
+        torneo = crearTorneo(nombreArchivoTorneo, nombreArchivoVideojuego);              //Creo torneo y valido ID
 
         FILE* archivo = fopen (nombreArchivoTorneo, "ab");
         if(archivo==NULL)
@@ -165,4 +177,29 @@ int validarIdTorneo (const char nombreArchivoTorneo [], char idNuevoTorneo [] )
 
     fclose (archivo);
     return 1;
+}
+
+int buscarVideojuegoPorId(const char nombreArchivoVideojuego[], char idVideojuego[], Videojuego *juegoDestino)
+{
+    FILE* archivo = fopen(nombreArchivoVideojuego, "rb");
+
+    if (archivo == NULL)
+    {
+        printf("Error al intentar abrir el archivo de videojuegos.\n");
+        return -1;
+    }
+
+    Videojuego aux;
+    while (fread(&aux, sizeof(Videojuego), 1, archivo) == 1)
+    {
+        if (strcmp(aux.idJuego, idVideojuego) == 0)                //Comparar los ID
+        {
+            *juegoDestino = aux;
+            fclose(archivo);
+            return 1;
+        }
+    }
+
+    fclose(archivo);
+    return 0;
 }
