@@ -1,20 +1,18 @@
 #ifndef GESTIONVIDEOJUEGOS_H_INCLUDED
 #define GESTIONVIDEOJUEGOS_H_INCLUDED
-
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "modelos.h"
-
 #define ARCHIVOVIDEOJUEGO "Videojuegos.bin"
+int cargarHardcodeadosAlArchivo();
+int obtenDimArchivoVideojuegos();
+Videojuego *cargarArregloHardcodeados(int cantidadHardcodeados);
+Videojuego *crearArregloJuegos(int* dimensionArchi, Videojuego listaHardcodeados[]);
+Videojuego *agregarJuegos(int* dimensionArchi, Videojuego arregloJuegos[]);
+Videojuego *redimensionarArregloJuegos(Videojuego *arregloJuegos, int nuevaDimension);
+Videojuego agregarJuego(int nuevaDim);
 
-int cargarHardcodeadosAlArchivo(char nombreArchivoJuegos[]);
-int obtenDimArchivoVideojuegos(char nombreArchivoJuegos[]);
-Videojuego *cargarArregloHardcodeados(char nombreArchivoJuegos[], int cantidadHardcodeados);
-Videojuego *crearArregloJuegos(char nombreArchivoJuegos[], int* dimensionArchi, Videojuego listaHardcodeados[]);
-Videojuego *agregarJuegos(char nombreArchivoJuegos[], int* dimensionArchi, Videojuego arregloJuegos[]);
-Videojuego *redimensionarArreglo(Videojuego *arregloJuegos, int nuevaDimension);
-Videojuego agregarJuego(char nombreArchivoJuegos[], int nuevaDim);
-void mostrarVideojuegosDisponibles (const char nombreArchivoVideojuego []);
+void mostrarJuegos(Videojuego arregloJuegos[], int dimension);
+void mostrarVideojuegosArchivo(char nombreArchivo[]);
+void modificarJuego(Videojuego arregloJuegos[], int dimension);
+void mostrarUnJuego(Videojuego juego);
 
 #endif // GESTIONVIDEOJUEGOS_H_INCLUDED

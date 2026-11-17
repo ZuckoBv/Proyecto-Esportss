@@ -1,10 +1,15 @@
-//carga de videojuegos hardcodeados al archivo
 #include "gestionvideojuegos.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "Admin.h"
 
+//carga de videojuegos hardcodeados al archivo
 
-int cargarHardcodeadosAlArchivo(char nombreArchivoJuegos[])
+int cargarHardcodeadosAlArchivo()
 {
-     Videojuego listadoJuegosHardcodeado[] = {
+    Videojuego listadoJuegosHardcodeado[] =
+    {
         {"1", "LoL", "MOBA", "PC", 1},
         {"2", "Dota 2", "MOBA", "PC", 1},
         {"3", "Honor of Kings", "MOBA", "PC", 1},
@@ -27,12 +32,13 @@ int cargarHardcodeadosAlArchivo(char nombreArchivoJuegos[])
         {"20", "Super Smash Bros Melee", "Fighting", "PC/Consola", 1},
         {"21", "PUBG Mobile", "Battle Royale", "Movil", 1},
         {"22", "Mobile Legends", "MOBA", "Movil", 1},
-        {"23", "Clash Royale", "RTS", "Movil", 1} //formateado con ia para que no se vea horrible pero dejamela pasar
-        };
+        {"23", "Clash Royale", "RTS", "Movil", 1}
+    };
+
     int i = 0;
     int cantidadJuegosHC = sizeof(listadoJuegosHardcodeado) / sizeof(listadoJuegosHardcodeado[0]); //obtiene la cantidad total de videojuegos
 
-    FILE *archivoJuegos = fopen(nombreArchivoJuegos, "ab"); //AB para que no sobreescriba los contenidos del archivo
+    FILE *archivoJuegos = fopen("Juegos.bin", "ab"); //AB para que no sobreescriba los contenidos del archivo
     fseek(archivoJuegos, 0, SEEK_SET); //esto es para que SIEMPRE empieze desde el principio del archivo
     if (archivoJuegos == NULL)
     {
@@ -53,152 +59,248 @@ int cargarHardcodeadosAlArchivo(char nombreArchivoJuegos[])
 }
 
 
-Videojuego *cargarArregloHardcodeados(char nombreArchivoJuegos[], int cantidadHardcodeados)
+Videojuego *cargarArregloHardcodeados(int cantidadHardcodeados)
 {
-    Videojuego temp_array; //arreglo temporal
-    int i = 0;
-
-    FILE *archivoJuegos = fopen(nombreArchivoJuegos, "rb");
-    Videojuego *listaHardcodeados = calloc((size_t) cantidadHardcodeados, sizeof (Videojuego));
-    if (listaHardcodeados == NULL)
+    FILE *archivo = fopen("Juegos.bin", "rb");
+    if (archivo == NULL || cantidadHardcodeados <= 0) //verificacion
     {
-     printf("Error al reservar memoria.\n");
-     return NULL;
-    }
-    if (archivoJuegos == NULL)
-    {
+        if (archivo != NULL)
+        {
+            fclose(archivo);
+        }
         return NULL;
     }
-
-    while (fread(&temp_array, sizeof(Videojuego), 1, archivoJuegos) == 1) //"mientras el archivo no este vacio,
+    Videojuego *listaHardcodeados = calloc((size_t)cantidadHardcodeados, sizeof(Videojuego)); // reserva de mem. dinamica
+    if (listaHardcodeados == NULL) //verificacion
     {
-        listaHardcodeados[i] = temp_array; //pasa lo que haya de temparray a listaHardcodeados"
-        i++;
+        fclose(archivo);
+        return NULL;
     }
-
-    fclose(archivoJuegos);
-
+    if (fread(listaHardcodeados, sizeof(Videojuego), cantidadHardcodeados, archivo) != cantidadHardcodeados) //mas verificaciones + guarda contenido en listaHardcodeados
+    {
+        free(listaHardcodeados);
+        fclose(archivo);
+        return NULL;
+    }
+    fclose(archivo);
     return listaHardcodeados;
 }
 
 
-int obtenDimArchivoVideojuegos(char nombreArchivoJuegos[])
+
+int obtenDimArchivoVideojuegos()
 {
-  int i = 0;
-  FILE * archivo = fopen(nombreArchivoJuegos, "rb");
-  if (archivo == NULL)
-  {
-    return 0;
-  }
- fseek(archivo, 1, SEEK_END); //se posiciona al final
- i = ftell(archivo); //obtiene la cantidad total de bytes del archivo
- int dimensionArchi = i/sizeof(Videojuego); //lo divide por el tamanio de 1 videojuego
- return dimensionArchi;
-}
-
-Videojuego *crearArregloJuegos(char nombreArchivoJuegos[], int* dimensionArchi, Videojuego listaHardcodeados[])
-{
- int i = 0;
- if (dimensionArchi == NULL || *dimensionArchi <= 0) //verifica que la dimension no tenga ningun valor imposible o apunte a null
- {
-  return NULL;
- }
- FILE *archivo = fopen(nombreArchivoJuegos, "rb");
- if (archivo == NULL)
- {
-  return NULL;
- }
- Videojuego *arregloJuegos = calloc((size_t)*dimensionArchi,sizeof(Videojuego)); //reservo espacio suficiente para todo lo que ya hay en archi
- //ej. lo ya hardcodeado
- if (arregloJuegos == NULL)
- {
-   fclose(archivo);
-   return NULL;
- }
- for (i; i<dimensionArchi; i++) //comprobamos que no se exceda de la dim.
- {
-   arregloJuegos[i] = listaHardcodeados[i]; //"pasa lo que haya de listaHardcodeados a arregloJuegos" (todavia no escribimos en archi)
- }
- fclose(archivo);
- return arregloJuegos;
-}
-
-Videojuego *agregarJuegos(char nombreArchivoJuegos[], int* dimensionArchi, Videojuego arregloJuegos[])
-{
- int i = 0;
- int nuevaDim;
- if (dimensionArchi == NULL || *dimensionArchi <= 0) //verifica que la dimension no tenga ningun valor imposible o apunte a null
- {
-  return NULL;
- }
- FILE *archivo = fopen(nombreArchivoJuegos, "ab");
- if (archivo == NULL)
- {
-  return NULL;
- }
-
- if (arregloJuegos == NULL)
- {
-   fclose(archivo);
-   return NULL;
- }
- printf("Porfavor ingrese la cantidad de nuevos juegos a cargar.");
- scanf("%i", &nuevaDim);
- Videojuego *nuevoArregloJuegos = redimensionarArreglo(arregloJuegos, nuevaDim);
- for (i; i>dimensionArchi; i++) //cargamos todo los hardcodeados, sabemos cuanto son dado a la dim. original
- {
-   nuevoArregloJuegos[i] = arregloJuegos[i]; //"pasa lo que haya de listaHardcodeados a el nuevo arregloJuegos"
- }
- for (i; i>nuevaDim; i++) //cargamos todo los hardcodeados, sabemos cuanto son dado a la dim. original
- {
-   agregarJuego(nombreArchivoJuegos, nuevaDim);
- }
- fclose(archivo);
- return arregloJuegos;
-}
-
-Videojuego *redimensionarArreglo(Videojuego *arregloJuegos, int nuevaDimension)
-{
-  if (nuevaDimension <= 0)
-  {
-    return NULL;
-  }
-  Videojuego *aux = realloc(arregloJuegos, (size_t)nuevaDimension * sizeof(Videojuego));
-  if (aux == NULL)
-  {
-    return arregloJuegos;
-  }
-  return aux;
-}
-
-Videojuego agregarJuego(char nombreArchivoJuegos[], int nuevaDim)
-{
-  int i = 0;
-  FILE *archivo = fopen(nombreArchivoJuegos, "ab");
-  for (i; i>nuevaDim; i++)
-  {
-    fseek(archivo, 0, SEEK_END);
-  }
-  fclose(archivo);
-}
-
-void mostrarVideojuegosDisponibles (const char nombreArchivoVideojuego [])
-{
-    Videojuego videojuego;
-    FILE* archivo = fopen (nombreArchivoVideojuego, "rb");
-
+    FILE *archivo = fopen("Juegos.bin", "rb");
+    int dimension;
     if (archivo == NULL)
     {
-        printf ("Error al intentar leer el archivo\n");
+        return 0;
+    }
+    fseek(archivo, 0, SEEK_END);
+    dimension = ftell(archivo) / sizeof(Videojuego);
+    fclose(archivo);
+    return dimension;
+}
+
+Videojuego *crearArregloJuegos(int* dimensionArchi, Videojuego listaHardcodeados[])
+{
+    Videojuego *arregloJuegos;
+    if (dimensionArchi == NULL || *dimensionArchi <= 0 || listaHardcodeados == NULL) //verif.
+    {
+        return NULL;
+    }
+    arregloJuegos = calloc((size_t)*dimensionArchi, sizeof(Videojuego)); //reserva dinam. de mem.
+    if (arregloJuegos == NULL)
+    {
+        return NULL;
+    }
+    memcpy(arregloJuegos, listaHardcodeados, (size_t)*dimensionArchi * sizeof(Videojuego)); //copia en arregloJuegos lo que hay en listahardcodeados
+    //
+    return arregloJuegos;
+}
+
+Videojuego *agregarJuegos(int* dimensionArchi, Videojuego arregloJuegos[])
+{
+    int cantidadNuevos;
+    int i;
+    FILE *archivo;
+    if (dimensionArchi == NULL)
+    {
+        return arregloJuegos;
+    }
+    printf("\n¿Cuantos videojuegos desea agregar?: ");
+    scanf("%d", &cantidadNuevos);
+    getchar();
+    if (cantidadNuevos <= 0)
+    {
+        printf("\nCantidad invalida.\n");
+        return arregloJuegos;
+    }
+    Videojuego *nuevoArregloJuegos = redimensionarArreglo(arregloJuegos, *dimensionArchi + cantidadNuevos);
+    if (nuevoArregloJuegos == arregloJuegos && nuevoArregloJuegos == NULL)
+    {
+        printf("\nError al reservar memoria.\n");
+        return arregloJuegos;
+    }
+    archivo = fopen("Juegos.bin", "ab");
+    if (archivo == NULL)
+    {
+        printf("\nError al abrir el archivo.\n");
+        return nuevoArregloJuegos;
+    }
+    for (i = 0; i < cantidadNuevos; i++)
+    {
+        nuevoArregloJuegos[*dimensionArchi] = agregarJuego(i + 1);
+        if (fwrite(&nuevoArregloJuegos[*dimensionArchi], sizeof(Videojuego), 1, archivo) != 1)
+        {
+            printf("\nError al guardar el videojuego.\n");
+            break;
+        }
+        (*dimensionArchi)++;
+        printf("\nVideojuego guardado correctamente.\n");
+    }
+    fclose(archivo);
+    return nuevoArregloJuegos;
+}
+
+Videojuego *redimensionarArregloJuegos(Videojuego *arregloJuegos, int nuevaDimension)
+{
+    Videojuego *aux;
+    if (nuevaDimension <= 0)
+    {
+        return NULL;
+    }
+    aux = realloc(arregloJuegos, (size_t)nuevaDimension * sizeof(Videojuego));
+    if (aux == NULL)
+    {
+        return arregloJuegos;
+    }
+    return aux;
+}
+
+Videojuego agregarJuego(int nuevaDim)
+{
+    Videojuego nuevoJuego;
+    printf("\n========== NUEVO VIDEOJUEGO %d ==========\n", nuevaDim);
+    printf("Ingrese el ID: ");
+    scanf(" %9[^\n]", nuevoJuego.idJuego);
+    getchar();
+    printf("Ingrese el nombre: ");
+    scanf(" %49[^\n]", nuevoJuego.nombre);
+    getchar();
+    printf("Ingrese el genero: ");
+    scanf(" %29[^\n]", nuevoJuego.genero);
+    getchar();
+    printf("Ingrese la plataforma: ");
+    scanf(" %19[^\n]", nuevoJuego.plataforma);
+    getchar();
+    nuevoJuego.activo = 1;
+    return nuevoJuego;
+}
+
+
+void mostrarUnJuego(Videojuego juego)
+{
+    printf("\nID: %s", juego.idJuego);
+    printf("\nNombre: %s", juego.nombre);
+    printf("\nGenero: %s", juego.genero);
+    printf("\nPlataforma: %s", juego.plataforma);
+    printf("\nEstado: %s\n", juego.activo ? "Activo" : "Inactivo");
+}
+
+void mostrarJuegos(Videojuego arregloJuegos[], int dimension)
+{
+    int i;
+    if (arregloJuegos == NULL || dimension <= 0)
+    {
+        printf("\nNo hay videojuegos cargados.\n");
         return;
     }
+    printf("\n========== LISTADO DE VIDEOJUEGOS ==========\n");
 
-    printf ("\nLista de videojuegos disponibles: \n");
-    while (fread(&videojuego, sizeof (Videojuego), 1, archivo) == 1)
+    for (i = 0; i < dimension; i++)
     {
-        printf ("|%s (ID: %s)| ", videojuego.nombre, videojuego.idJuego);
+        mostrarUnJuego(arregloJuegos[i]);
+        printf("--------------------------------------------\n");
     }
-    printf ("\n");
-
-    fclose (archivo);
 }
+
+void modificarJuego(Videojuego arregloJuegos[], int dimension)
+{
+    char idBuscado[10];
+    int i;
+    int encontrado = 0;
+    FILE *archivo;
+    if (arregloJuegos == NULL || dimension <= 0)
+    {
+        printf("\nNo hay videojuegos para modificar.\n");
+        return;
+    }
+    printf("\nIngrese el ID del videojuego que desea modificar: ");
+    scanf(" %9[^\n]", idBuscado);
+    getchar();
+    for (i = 0; i < dimension; i++)
+    {
+        if (strcmp(arregloJuegos[i].idJuego, idBuscado) == 0)
+        {
+            encontrado = 1;
+            printf("\nVideojuego encontrado:\n");
+            mostrarUnJuego(arregloJuegos[i]);
+            printf("\nIngrese el nuevo nombre: ");
+            scanf(" %49[^\n]", arregloJuegos[i].nombre);
+            getchar();
+            printf("Ingrese el nuevo genero: ");
+            scanf(" %29[^\n]", arregloJuegos[i].genero);
+            getchar();
+            printf("Ingrese la nueva plataforma: ");
+            scanf(" %19[^\n]", arregloJuegos[i].plataforma);
+            getchar();
+            printf("Ingrese el estado (1 = Activo / 0 = Inactivo): ");
+            scanf("%d", &arregloJuegos[i].activo);
+            getchar();
+            archivo = fopen("Juegos.bin", "wb");
+            if (archivo == NULL)
+            {
+                printf("\nError al abrir el archivo.\n");
+                return;
+            }
+            if (fwrite(arregloJuegos, sizeof(Videojuego), dimension, archivo) != dimension)
+            {
+                printf("\nError al guardar los cambios.\n");
+            }
+            else
+            {
+                printf("\nVideojuego modificado correctamente.\n");
+            }
+            fclose(archivo);
+            break;
+        }
+    }
+    if (!encontrado)
+    {
+        printf("\nNo se encontro ningun videojuego con ese ID.\n");
+    }
+}
+
+void mostrarVideojuegosArchivo(char nombreArchivo[])
+{
+    FILE *arch = fopen(nombreArchivo, "rb");
+    Videojuego aux;
+    if (arch == NULL)
+    {
+        printf("No se pudo abrir el archivo de videojuegos.\n");
+        return;
+    }
+    printf("\n=== LISTADO DE VIDEOJUEGOS ===\n");
+    while (fread(&aux, sizeof(Videojuego), 1, arch) > 0)
+    {
+        printf("ID: %s | Nombre: %s | Genero: %s | Plataforma: %s | Estado: %s\n", aux.idJuego,
+               aux.nombre,
+               aux.genero,
+               aux.plataforma,
+               (aux.activo == 1) ? "Activo" : "Inactivo");
+    }
+    printf("==============================\n\n");
+    fclose(arch);
+}
+

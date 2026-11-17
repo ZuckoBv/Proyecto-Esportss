@@ -60,7 +60,7 @@ Torneo crearTorneo(const char nombreArchivoTorneo [], const char nombreArchivoVi
     printf ("Ingrese el nombre del torneo: \n");
     leerString (torneo.nombre, 50);
 
-    mostrarVideojuegosDisponibles (nombreArchivoVideojuego);
+    mostrarVideojuegosArchivo(nombreArchivoTorneo);
     while (juegoValido != 1)
 {
     printf("Escriba el ID del videojuego a agregar: \n");

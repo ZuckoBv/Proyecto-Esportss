@@ -7,6 +7,7 @@ typedef struct stVideojuego {
     char nombre[50];
     char genero[30];
     char plataforma[20];
+    int activo;
 } Videojuego;
 
 //typedef struct stUsuario {
@@ -47,5 +48,8 @@ typedef struct stInscripcion {
     char idUsuario[10];
     Fecha fechaInscripcion;
 } Inscripcion;
+
+
+
 
 #endif // MODELOS_H_INCLUDED
