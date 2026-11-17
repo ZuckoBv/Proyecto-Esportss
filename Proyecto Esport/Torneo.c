@@ -1,5 +1,6 @@
 #include "Torneo.h"
 #include "Usuario.h"
+#include "gestionvideojuegos.h"
 
 void sistemaTorneo()
 {
@@ -58,19 +59,19 @@ Torneo crearTorneo(const char nombreArchivoTorneo [])
     printf ("Ingrese el nombre del torneo: \n");
     leerString (torneo.nombre, 50);
 
-    //FUNCION DE MOSTRAR VIDEOJUEGOS
-
+    mostrarVideojuegosDisponibles (ARCHIVOVIDEOJUEGO);
     printf ("Escriba el ID del videojuego a agregar: \n");
     //FUNCION PARA GUARDAR TODOS LOS DATOS DEL JUEGO AL TORNEO
 
-    printf ("Ingrese la fecha: ");
+    printf ("Ingrese la fecha: \n");
+    printf ("  Dia: ");
     scanf ("%d", &torneo.fechaInicio.dia);
-    printf ("| ");
+    printf ("  Mes:  ");
     scanf ("%d", &torneo.fechaInicio.mes);
-    printf ("| ");
+    printf ("  Anio:  ");
     scanf ("%d",&torneo.fechaInicio.anio);
-    printf ("\n");
-    printf ("Ingrese la capacidad maxima: ");
+
+    printf ("\nIngrese la capacidad maxima: \n");
     scanf ("%d", &torneo.capacidadMaxima);
     printf ("Ingrese cantidad de cupos disponibles: \n");
     scanf ("%d", &torneo.cuposDisponibles);

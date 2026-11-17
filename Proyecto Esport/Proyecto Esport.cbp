@@ -47,6 +47,10 @@
 		</Unit>
 		<Unit filename="Torneo.h" />
 		<Unit filename="Usuario.h" />
+		<Unit filename="codigogestionjuegos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gestionvideojuegos.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
