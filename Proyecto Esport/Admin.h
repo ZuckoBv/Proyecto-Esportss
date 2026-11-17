@@ -2,10 +2,13 @@
 #define ADMIN_H_INCLUDED
 #include "modelos.h"
 
-void cargarAdministrador(char nombreArchivo[]);
-int autenticarAdmin(char nombreArchivo[]);
 Administrador cargarAdministrador();
-void guardarAdministrador(Administrador a, char nombreArchivo[]);
-int autenticarAdmin(char nombreArchivo[]);
-
+Administrador* redimensionarArreglo(Administrador* arreglo, int validos);
+Administrador* agregarAdministrador(Administrador* arreglo,int validos);
+void cargarAdministradoresEnArchivo(char nombreArchivo[]);
+int guardarAdministradoresEnArchivo(char nombreArchivo[],Administrador arreglo[],int validos);
+int autenticarAdmin(char nombreArchivo[], char usuario[], char contrasenia[]);
 #endif // ADMIN_H_INCLUDED
+
+
+

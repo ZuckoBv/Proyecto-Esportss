@@ -4,6 +4,7 @@
 #define CLAVE "nexus"
 #include "modelos.h"
 #include "Login.h"
+#include "Admin.h"
 
 
 //PROTOTIPADOS-------------------------------------------------
@@ -25,6 +26,9 @@ void mostrarMenuAcceso()
 
 int login()
 {
+    char usuario[20];
+    char contrasenia[20];
+
     int opcion = -1;
     int acceso = ACCESO_FALLIDO;
 
@@ -32,6 +36,7 @@ int login()
     {
         mostrarMenuAcceso();
         scanf("%d", &opcion);
+        while(getchar()!='\n');
 
         switch(opcion)
         {
@@ -42,8 +47,28 @@ int login()
             printf("\nCrear cuenta: pendiente.\n");
             break;
         case 3:
-            printf("\nAdministrador: pendiente.\n");
-            break;
+            printf("===================\n");
+            printf("    BIENVENIDO\n");
+            printf("===================\n");
+            printf("\nUsuario: ");
+            fgets(usuario,20,stdin);
+            usuario[strcspn(usuario,"\n")]=0;
+
+            printf("Contrasenia: ");
+            fgets(contrasenia,20,stdin);
+            contrasenia[strcspn(contrasenia,"\n")]=0;
+
+            if(autenticarAdmin("administradores.bin", usuario,contrasenia)==1)
+            {
+               acceso=ACCESO_ADMIN;
+            }
+
+            else
+            {
+                printf("Contrasenia invalida.\n");
+            }
+             break;
+
         }
     }
 
