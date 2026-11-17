@@ -5,6 +5,8 @@
 void sistemaTorneo()
 {
     int opcion;
+    int valido = 0;
+    Torneo torneo;
 
     do
     {
@@ -14,7 +16,9 @@ void sistemaTorneo()
         printf("\n========================================");
         printf("\n");
         printf("\n  [1]  Cargar nuevo torneo ");
-        printf("\n  [2]  Mostrar todos los torneos ");
+        printf("\n  [2]  Modificar torneo");
+        printf("\n  [3]  Mostrar todos los torneos ");
+        printf("\n ");
         printf("\n");
         printf("\n  [0]  Salir");
         printf("\n");
@@ -28,6 +32,23 @@ void sistemaTorneo()
             break;
 
         case 2:
+            mostrarTorneosArchivo (ARCHIVOTORNEO);
+
+              printf ("Ingrese el ID del torneo a modificar: \n");
+              while (getchar () != '\n');
+              leerString (torneo.idTorneo, 10);
+              valido = validarIdTorneo (ARCHIVOTORNEO, torneo.idTorneo);
+
+            if (valido != 0)
+            {
+                printf ("ID incorrecto o error de archivo\n");
+            }else {
+                modificarTorneo (ARCHIVOTORNEO, ARCHIVOVIDEOJUEGO, torneo.idTorneo);
+            }
+
+            break;
+
+        case 3:
             mostrarTorneosArchivo (ARCHIVOTORNEO);
             break;
 
@@ -55,6 +76,10 @@ Torneo crearTorneo(const char nombreArchivoTorneo [], const char nombreArchivoVi
         printf ("Ingrese el ID del torneo: \n");                   //Bucle para no repetir ID
         leerString (torneo.idTorneo, 10);
         valido = validarIdTorneo (nombreArchivoTorneo, torneo.idTorneo);
+        if (valido == 0)
+        {
+             printf ("Ya existe ese ID \n");
+        }
     }
 
     printf ("Ingrese el nombre del torneo: \n");
@@ -169,7 +194,6 @@ int validarIdTorneo (const char nombreArchivoTorneo [], char idNuevoTorneo [] )
     {
         if (strcmp (torneo.idTorneo, idNuevoTorneo) == 0)                 // Comparar con todos los ID
         {
-            printf ("Ya existe ese ID \n");
             fclose (archivo);
             return 0;
         }
@@ -201,5 +225,32 @@ int buscarVideojuegoPorId(const char nombreArchivoVideojuego[], char idVideojueg
     }
 
     fclose(archivo);
+
     return 0;
+}
+
+void modificarTorneo (const char nombreArchivoTorneo [] , const char nombreArchivoVideojuego [], char idTorneo [])
+{
+    Torneo torneo;
+    FILE* archivo = fopen (nombreArchivoTorneo, "r+b");
+    int flag = 0;
+
+    if (archivo==NULL)
+        {
+            printf("\nEl archivo no abrio");
+            return;
+        }
+
+    while (fread (&torneo, sizeof(Torneo), 1, archivo) == 1 && flag == 0)
+    {
+        if (strcmp (idTorneo, torneo.idTorneo) == 0)
+        {
+            fseek (archivo, sizeof (Torneo)*-1,1);
+            torneo = crearTorneo (nombreArchivoTorneo, nombreArchivoVideojuego);
+            fwrite (&torneo, sizeof (Torneo), 1, archivo);
+            flag = 1;
+        }
+    }
+
+    fclose(archivo);
 }

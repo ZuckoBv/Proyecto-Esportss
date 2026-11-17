@@ -1,7 +1,7 @@
 #ifndef MODELOS_H_INCLUDED
 #define MODELOS_H_INCLUDED
 
-// Estructuras de Juegos, Usuarios, Administradores, Fechas y Torneos
+// Estructuras de Juegos, Administradores, Fechas y Torneos
 typedef struct stVideojuego {
     char idJuego[10]; // Código único del juego (ej. "LOL", "CS2")
     char nombre[50];
@@ -10,13 +10,6 @@ typedef struct stVideojuego {
     int activo;
 } Videojuego;
 
-//typedef struct stUsuario {
-//    char idUsuario[10]; // ID de jugador único
-//    char nickname[30];
-//    char email[50];                   TEMPORAL
-//    char pais[30];
-//    int nivel; // Nivel de experiencia (ej. 1 a 10)
-//} Usuario;
 
 typedef struct stAdministrador {
     char usuario[20]; // Usuario para el login
