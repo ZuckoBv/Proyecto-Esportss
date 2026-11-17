@@ -1,12 +1,8 @@
-#include "Login.h"
-#include "Usuario.h"
-#include "gestionvideojuegos.h"
-#include "Torneo.h"
+#include <stdio.h>
+#include <stdlib.h>
+
 int main()
 {
-    cargarHardcodeadosAlArchivo();
-    int validosLogin=login ();
-     sistemaUsuario();
-    sistemaTorneo();
+    sistemaUsuario();
     return 0;
 }

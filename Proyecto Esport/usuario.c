@@ -29,8 +29,10 @@ void sistemaUsuario()
         case 2:
             mostrarUsuarioArchivo(nombreArchivoUsuario);
             break;
+        case 3:
+            mostrarNombreUsuario(nombreArchivoUsuario);
         }
-        system ("cls");
+
     }
 }
 
@@ -183,10 +185,12 @@ void mostrarNombreUsuario(char nombreArchivo[])
         printf("\n %s [%s]", a.usuario, a.idUsuario);
     }
     printf("\nElige el ID del usuario que desea modifica: ");
+    while (getchar() != '\n');
     leerString(nickname,30);
-    while(fread(&a,sizeof(Usuario),1,buffer)>0 && flag == 0)
+    rewind(buffer);
+    while(fread(&a,sizeof(Usuario),1,buffer)==1 && flag==0)
     {
-        if(strcmp(nickname,a.usuario)==0)
+        if(strcmp(nickname,a.idUsuario)==0)
         {
             fseek(buffer,sizeof(Usuario)*-1,1);
             a=cargarUsaurio();
