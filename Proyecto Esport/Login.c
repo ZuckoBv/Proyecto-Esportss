@@ -7,18 +7,13 @@
 #include "Admin.h"
 
 
-//PROTOTIPADOS-------------------------------------------------
-int loginOperador();
-//-------------------------------------------------------------
-
 void mostrarMenuAcceso()
 {
     printf("\n========================================");
     printf("\n             NEXUS ARENA");
     printf("\n========================================");
-    printf("\n  [1]  Ingresar");
-    printf("\n  [2]  Crear cuenta");
-    printf("\n  [3]  Iniciar sesion como administrador");
+    printf("\n  [1]  Iniciar sesion como usuario.\n");
+    printf("\n  [2]  Iniciar sesion como administrador.\n");
     printf("\n  [0]  Salir");
     printf("\n========================================");
     printf("\n  Seleccione una opcion: ");
@@ -32,6 +27,8 @@ int login()
     int opcion = -1;
     int acceso = ACCESO_FALLIDO;
 
+    inicializarAdminsPorDefecto("administradores.bin");
+
     while(opcion != 0 && acceso == ACCESO_FALLIDO)
     {
         mostrarMenuAcceso();
@@ -41,14 +38,12 @@ int login()
         switch(opcion)
         {
         case 1:
-            printf("\nIngresar: pendiente.\n");
+            printf("Sistema Usuario.");
             break;
+
         case 2:
-            printf("\nCrear cuenta: pendiente.\n");
-            break;
-        case 3:
             printf("===================\n");
-            printf("    BIENVENIDO\n");
+            printf("    ACCESO ADMIN\n");
             printf("===================\n");
             printf("\nUsuario: ");
             fgets(usuario,20,stdin);
@@ -60,14 +55,23 @@ int login()
 
             if(autenticarAdmin("administradores.bin", usuario,contrasenia)==1)
             {
-               acceso=ACCESO_ADMIN;
+                printf("Acceso concedido. Exito!\n");
+                acceso=ACCESO_ADMIN;
             }
 
             else
             {
-                printf("Contrasenia invalida.\n");
+                printf("Usuario o clave invalidos.\n");
             }
-             break;
+            break;
+
+        case 0:
+            printf("\nSaliendo del sistema...\n");
+            break;
+
+        default:
+            printf("\nOpcion invalida.\n");
+            break;
 
         }
     }

@@ -49,7 +49,7 @@ int guardarAdministradoresEnArchivo(char nombreArchivo[], Administrador arreglo[
 }
 
 
-Administrador* redimensionarArreglo(Administrador* arreglo,int validos)
+Administrador* redimensionarArregloAdmin(Administrador* arreglo,int validos)
 {
     int nuevaDim=DIM+dimINC;
 
@@ -61,7 +61,6 @@ Administrador* redimensionarArreglo(Administrador* arreglo,int validos)
         DIM=nuevaDim;
     }
 
-
     return arreglo;
 
 }
@@ -70,7 +69,7 @@ Administrador* agregarAdministrador(Administrador arreglo[],int validos)
 {
     if(validos==DIM)
     {
-        arreglo=redimensionarArreglo(arreglo,validos);
+        arreglo=redimensionarArregloAdmin(arreglo,validos);
     }
 
     arreglo[validos]=cargarAdministrador();
@@ -112,8 +111,8 @@ int autenticarAdmin(char nombreArchivo[], char usuario[], char contrasenia[])
     Administrador temp;
 
     while(fread(&temp,sizeof(Administrador),1,archivo) && buscado==0)
-{
-    if(strcmp(temp.usuario,usuario)==0 && strcmp(temp.contrasenia,contrasenia)==0)
+    {
+        if(strcmp(temp.usuario,usuario)==0 && strcmp(temp.contrasenia,contrasenia)==0)
         {
             buscado=1;
         }
@@ -122,4 +121,91 @@ int autenticarAdmin(char nombreArchivo[], char usuario[], char contrasenia[])
     fclose(archivo);
 
     return buscado;
+}
+void inicializarAdminsPorDefecto(char nombreArchivo[])
+{
+    FILE* archivo=fopen(nombreArchivo,"rb");
+
+    if(!archivo)
+    {
+        fclose(archivo);
+        return;
+    }
+
+    Administrador adminsDefecto[2]=
+    {
+        {
+            "admin","1234","Administrador Principal","Organizador"
+        },
+        {"staff","nexus","Staff Nexus Arena","Staff"}
+    };
+
+    guardarAdministradoresEnArchivo(nombreArchivo,adminsDefecto,2);
+
+    int guardados = guardarAdministradoresEnArchivo(nombreArchivo, adminsDefecto, 2);
+
+    if (guardados == 0)
+    {
+        printf("[DEBUG] Error: no se pudo crear %s\n", nombreArchivo);
+    }
+}
+
+
+void mostrarAdministradores(char nombreArchivo[])
+{
+    FILE* archivo=fopen(nombreArchivo,"rb");
+
+    if(!archivo)
+    {
+        printf("\nNo se pudo abrir el archivo de administradores.\n");
+        return;
+    }
+    Administrador temp;
+    printf("\n-----------------------------------------------------------------\n");
+    printf("%-15s | %-15s | %-25s\n", "USUARIO", "ROL", "NOMBRE COMPLETO");
+    printf("-----------------------------------------------------------------\n");
+
+    while (fread(&temp, sizeof(Administrador), 1, archivo) == 1)
+    {
+        printf("%-15s | %-15s | %-25s\n", temp.usuario, temp.rol, temp.nombreCompleto);
+    }
+    printf("-----------------------------------------------------------------\n");
+
+    fclose(archivo);
+
+}
+
+void menuAdministrador(char nombreArchivo[])
+{
+    int opcion = -1;
+
+    while (opcion != 0)
+    {
+        printf("\n--- PANEL DE ADMINISTRADOR ---\n");
+        printf("1.Registrar nuevos administradores\n");
+        printf("2.Ver listado de administradores\n");
+        printf("0.Cerrar sesion\n");
+        printf("Seleccione una opcion: ");
+        scanf("%d", &opcion);
+        while (getchar() != '\n');
+
+        switch(opcion)
+        {
+        case 1:
+            cargarAdministradoresEnArchivo("administradores.bin");
+            break;
+
+        case 2:
+            mostrarAdministradores("administradores.bin");
+
+        case 0:
+            printf("Cerrando sesion de administrador...\n");
+            break;
+
+        default:
+            printf("Opcion invalida.\n");
+            break;
+       }
+    }
+
 }
