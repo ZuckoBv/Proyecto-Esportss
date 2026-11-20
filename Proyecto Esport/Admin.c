@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Admin.h"
+#include "Torneo.h"
+#include "Usuario.h"
 
 int DIM=30;
 int dimINC=10;
@@ -9,6 +11,9 @@ int dimINC=10;
 Administrador cargarAdministrador()
 {
     Administrador admin;
+    printf("=============================\n");
+    printf("REGISTRAR NUEVO ADMINISTRADOR\n");
+    printf("=============================\n");
     printf("Usuario: ");
     fgets(admin.usuario,20,stdin);
     admin.usuario[strcspn(admin.usuario,"\n")]=0;
@@ -122,34 +127,6 @@ int autenticarAdmin(char nombreArchivo[], char usuario[], char contrasenia[])
 
     return buscado;
 }
-void inicializarAdminsPorDefecto(char nombreArchivo[])
-{
-    FILE* archivo=fopen(nombreArchivo,"rb");
-
-    if(!archivo)
-    {
-        fclose(archivo);
-        return;
-    }
-
-    Administrador adminsDefecto[2]=
-    {
-        {
-            "admin","1234","Administrador Principal","Organizador"
-        },
-        {"staff","nexus","Staff Nexus Arena","Staff"}
-    };
-
-    guardarAdministradoresEnArchivo(nombreArchivo,adminsDefecto,2);
-
-    int guardados = guardarAdministradoresEnArchivo(nombreArchivo, adminsDefecto, 2);
-
-    if (guardados == 0)
-    {
-        printf("[DEBUG] Error: no se pudo crear %s\n", nombreArchivo);
-    }
-}
-
 
 void mostrarAdministradores(char nombreArchivo[])
 {
@@ -197,6 +174,7 @@ void menuAdministrador(char nombreArchivo[])
 
         case 2:
             mostrarAdministradores("administradores.bin");
+            break;
 
         case 0:
             printf("Cerrando sesion de administrador...\n");
@@ -208,4 +186,56 @@ void menuAdministrador(char nombreArchivo[])
        }
     }
 
+}
+
+void submenuAdministradores(char nombreArchivo[])
+{
+
+        int opcion=-1;
+
+        do
+        {
+
+        printf("\n========================================\n");
+        printf("        PANEL DE ADMINISTRADOR\n");
+        printf("========================================\n");
+        printf("1. Administrar Torneos\n");
+        printf("2. Administrar Juegos\n");
+        printf("3. Administrar Usuarios\n");
+        printf("4. Administrar Administradores\n");
+        printf("0. Cerrar sesion\n");
+        printf("========================================\n");
+        printf("Seleccione una opcion: ");
+        scanf("%d", &opcion);
+        while(getchar()!='\n');
+
+        switch(opcion)
+        {
+        case 1:
+        sistemaTorneo();
+        break;
+
+        case 2:
+        //administrarJuegos()
+        break;
+
+        case 3:
+        sistemaUsuario();
+        break;
+
+        case 4:
+        menuAdministrador("administradores.bin");
+        break;
+
+        case 0:
+        printf("Saliendo del sistema...\n");
+        break;
+
+        default:
+        printf("Opcion invalida.\n");
+
+            break;
+        }
+
+    }while(opcion!=0);
 }

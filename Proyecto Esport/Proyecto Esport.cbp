@@ -33,15 +33,16 @@
 		</Compiler>
 		<Unit filename="Admin.c">
 			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="Admin.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="Admin.h" />
 		<Unit filename="Login.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Login.h" />
+		<Unit filename="Sistema.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Sistema.h" />
 		<Unit filename="Torneo.c">
 			<Option compilerVar="CC" />
 		</Unit>

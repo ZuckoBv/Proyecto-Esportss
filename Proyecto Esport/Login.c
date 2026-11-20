@@ -5,7 +5,8 @@
 #include "modelos.h"
 #include "Login.h"
 #include "Admin.h"
-
+#include "usuario.h"
+#include "Torneo.h"
 
 void mostrarMenuAcceso()
 {
@@ -27,7 +28,6 @@ int login()
     int opcion = -1;
     int acceso = ACCESO_FALLIDO;
 
-    inicializarAdminsPorDefecto("administradores.bin");
 
     while(opcion != 0 && acceso == ACCESO_FALLIDO)
     {
@@ -38,16 +38,39 @@ int login()
         switch(opcion)
         {
         case 1:
-            printf("Sistema Usuario.");
+            sistemaUsuario();
             break;
 
         case 2:
-            printf("===================\n");
-            printf("    ACCESO ADMIN\n");
-            printf("===================\n");
+
+            FILE* temp=fopen("administradores.bin", "rb");
+
+            if(!temp)
+            {
+                printf("\n[!] No hay administradores registrados.\n");
+                cargarAdministradoresEnArchivo("administradores.bin");
+            }
+
+            else
+            {
+                fclose(temp);
+            }
+
+            printf("==========================\n");
+            printf("  ERES UN ADMINISTRADOR?\n");
+            printf("==========================\n");
+            printf("Presione 0 para volver al menu.\n");
+
+
             printf("\nUsuario: ");
             fgets(usuario,20,stdin);
             usuario[strcspn(usuario,"\n")]=0;
+
+            if (strcmp(usuario, "0") == 0)
+            {
+                printf("\nVolviendo al menu principal...\n");
+                break;
+            }
 
             printf("Contrasenia: ");
             fgets(contrasenia,20,stdin);
@@ -57,6 +80,8 @@ int login()
             {
                 printf("Acceso concedido. Exito!\n");
                 acceso=ACCESO_ADMIN;
+                submenuAdministradores("administradores.bin");
+
             }
 
             else
@@ -66,14 +91,17 @@ int login()
             break;
 
         case 0:
+            acceso=SALIR_SISTEMA;
             printf("\nSaliendo del sistema...\n");
             break;
+
 
         default:
             printf("\nOpcion invalida.\n");
             break;
 
         }
+
     }
 
     return acceso;

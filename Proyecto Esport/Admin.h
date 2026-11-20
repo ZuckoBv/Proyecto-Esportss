@@ -8,9 +8,9 @@ Administrador* agregarAdministrador(Administrador* arreglo,int validos);
 void cargarAdministradoresEnArchivo(char nombreArchivo[]);
 int guardarAdministradoresEnArchivo(char nombreArchivo[],Administrador arreglo[],int validos);
 int autenticarAdmin(char nombreArchivo[], char usuario[], char contrasenia[]);
-void inicializarAdminsPorDefecto(char nombreArchivo[]);
 void mostrarAdministradores(char nombreArchivo[]);
 void menuAdministrador(char nombreArchivo[]);
+void submenuAdministradores(char nombreArchivo[]);
 
 #endif // ADMIN_H_INCLUDED
 

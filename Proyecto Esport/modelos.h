@@ -1,5 +1,8 @@
 #ifndef MODELOS_H_INCLUDED
 #define MODELOS_H_INCLUDED
+#define ACCESO_FALLIDO 0
+#define ACCESO_ADMIN 1
+#define SALIR_SISTEMA -1
 
 // Estructuras de Juegos, Administradores, Fechas y Torneos
 typedef struct stVideojuego {
@@ -9,7 +12,6 @@ typedef struct stVideojuego {
     char plataforma[20];
     int activo;
 } Videojuego;
-
 
 typedef struct stAdministrador {
     char usuario[20]; // Usuario para el login
@@ -41,8 +43,5 @@ typedef struct stInscripcion {
     char idUsuario[10];
     Fecha fechaInscripcion;
 } Inscripcion;
-
-
-
 
 #endif // MODELOS_H_INCLUDED
