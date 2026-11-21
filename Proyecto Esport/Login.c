@@ -13,8 +13,7 @@ void mostrarMenuAcceso()
     printf("\n========================================");
     printf("\n             NEXUS ARENA");
     printf("\n========================================");
-    printf("\n  [1]  Iniciar sesion como usuario.\n");
-    printf("\n  [2]  Iniciar sesion como administrador.\n");
+    printf("\n  [1]  Iniciar sesion como administrador.\n");
     printf("\n  [0]  Salir");
     printf("\n========================================");
     printf("\n  Seleccione una opcion: ");
@@ -22,8 +21,6 @@ void mostrarMenuAcceso()
 
 int login()
 {
-    char usuario[20];
-    char contrasenia[20];
 
     int opcion = -1;
     int acceso = ACCESO_FALLIDO;
@@ -38,58 +35,8 @@ int login()
         switch(opcion)
         {
         case 1:
-            system("cls");
-            sistemaUsuario();
-            break;
 
-        case 2:
-
-            /*FILE* temp=fopen("administradores.bin", "rb");
-
-            if(!temp)
-            {
-                printf("\n[!] No hay administradores registrados.\n");
-                cargarAdministradoresEnArchivo("administradores.bin");
-            }
-
-            else
-            {
-                fclose(temp);
-            }
-            */
-            system("cls");
-            printf("==========================\n");
-            printf("  ERES UN ADMINISTRADOR?\n");
-            printf("==========================\n");
-            printf("Presione 0 para volver al menu.\n");
-
-
-            printf("\nUsuario: ");
-            fgets(usuario,20,stdin);
-            usuario[strcspn(usuario,"\n")]=0;
-
-            if (strcmp(usuario, "0") == 0)
-            {
-                printf("\nVolviendo al menu principal...\n");
-                break;
-            }
-
-            printf("Contrasenia: ");
-            fgets(contrasenia,20,stdin);
-            contrasenia[strcspn(contrasenia,"\n")]=0;
-
-            if(autenticarAdmin("administradores.bin", usuario,contrasenia)==1)
-            {
-                printf("Acceso concedido. Exito!\n");
-                acceso=ACCESO_ADMIN;
-                submenuAdministradores("administradores.bin");
-
-            }
-
-            else
-            {
-                printf("Usuario o clave invalidos.\n");
-            }
+            acceso=iniciarSesionAdmin();
 
             break;
 
@@ -108,4 +55,64 @@ int login()
     }
 
     return acceso;
+}
+
+int iniciarSesionAdmin()
+{
+    char usuario[20];
+    char contrasenia[20];
+
+
+    FILE* temp=fopen("administradores.bin", "rb");
+
+    if(!temp)
+    {
+        printf("\n[!] No hay administradores registrados.\n");
+        cargarAdministradoresEnArchivo("administradores.bin");
+    }
+
+    else
+    {
+        fclose(temp);
+    }
+
+    printf("==========================\n");
+    printf("  ERES UN ADMINISTRADOR?\n");
+    printf("==========================\n");
+    printf("Presione 0 para volver al menu.\n");
+
+
+    printf("\nUsuario: ");
+    fgets(usuario,20,stdin);
+    usuario[strcspn(usuario,"\n")]=0;
+
+    if (strcmp(usuario, "0") == 0)
+    {
+        printf("\nVolviendo al menu principal...\n");
+        return ACCESO_FALLIDO;
+    }
+
+    printf("Contrasenia: ");
+    fgets(contrasenia,20,stdin);
+    contrasenia[strcspn(contrasenia,"\n")]=0;
+
+    if(autenticarAdmin("administradores.bin", usuario,contrasenia)==1)
+    {
+        printf("Acceso concedido. Exito!\n");
+
+        return ACCESO_ADMIN;
+
+    }
+
+    else
+    {
+        printf("Usuario o clave invalidos.\n");
+        return ACCESO_FALLIDO;
+    }
+
+
+
+
+
+
 }

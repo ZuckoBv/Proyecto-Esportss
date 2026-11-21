@@ -4,19 +4,57 @@
 #include "Admin.h"
 #include "Torneo.h"
 #include "Usuario.h"
+#define DIM 30
+#define dimINC 10
 
-int DIM=30;
-int dimINC=10;
-
-Administrador cargarAdministrador()
+int existeEnAdmin(char nombreArchivo[], char usuario[])
 {
+
+    FILE* archivo=fopen(nombreArchivo, "rb");
+
+    if(!archivo)
+    {
+        return 0;
+    }
+    Administrador temp;
+    while(fread(&temp, sizeof(Administrador),1,archivo)==1)
+    {
+        if(strcmp(temp.usuario, usuario)==0)
+        {
+            fclose(archivo);
+            return 1;
+        }
+
+    }
+
+    fclose(archivo);
+
+    return 0;
+
+}
+
+Administrador cargarAdministrador(char nombreArchivo[])
+{
+    int buscado=0;
     Administrador admin;
     printf("=============================\n");
     printf("REGISTRAR NUEVO ADMINISTRADOR\n");
     printf("=============================\n");
+
+    do
+    {
     printf("Usuario: ");
     fgets(admin.usuario,20,stdin);
     admin.usuario[strcspn(admin.usuario,"\n")]=0;
+
+    buscado=existeEnAdmin(nombreArchivo,admin.usuario);
+
+    if(buscado==1)
+    {
+        printf("[!]Ese nombre de usuario ya existe.Intente con otro.\n\n");
+    }
+
+    }while(buscado==1);
 
     printf("Contrasenia: ");
     fgets(admin.contrasenia,20,stdin);
@@ -54,45 +92,48 @@ int guardarAdministradoresEnArchivo(char nombreArchivo[], Administrador arreglo[
 }
 
 
-Administrador* redimensionarArregloAdmin(Administrador* arreglo,int validos)
+Administrador* redimensionarArregloAdmin(Administrador* arreglo,int* capacidad)
 {
-    int nuevaDim=DIM+dimINC;
+    int nuevaDim=(*capacidad)+dimINC;
 
     Administrador* temp=realloc(arreglo,nuevaDim*sizeof(Administrador));
 
     if(temp)
     {
         arreglo=temp;
-        DIM=nuevaDim;
+        *capacidad=nuevaDim;
     }
 
     return arreglo;
 
 }
 
-Administrador* agregarAdministrador(Administrador arreglo[],int validos)
+Administrador* agregarAdministrador(Administrador** arreglo,int* validos, int* capacidad, char nombreArchivo[])
 {
-    if(validos==DIM)
+    if(*validos== *capacidad)
     {
-        arreglo=redimensionarArregloAdmin(arreglo,validos);
+        *arreglo=redimensionarArregloAdmin(*arreglo, capacidad);
     }
 
-    arreglo[validos]=cargarAdministrador();
+    (*arreglo)[(*validos)]=cargarAdministrador(nombreArchivo);
+    (*validos)++;
 
 
-    return arreglo;
+    return *arreglo;
 }
 
 void cargarAdministradoresEnArchivo(char nombreArchivo[])
 {
-    Administrador* arreglo=calloc(DIM,sizeof(Administrador));
+    int capacidad=DIM;
+    Administrador* arreglo=crearArregloDinamicoAdmin(capacidad);
     int validos=0;
     char seguir='s';
 
+
     while(seguir=='s'||seguir=='S')
     {
-        arreglo=agregarAdministrador(arreglo,validos);
-        validos++;
+        arreglo=agregarAdministrador(&arreglo,&validos,&capacidad,"administrador.bin");
+
 
         printf("Desea seguir cargando admins? s/n\n");
         scanf(" %c", &seguir);
@@ -183,7 +224,7 @@ void menuAdministrador(char nombreArchivo[])
         default:
             printf("Opcion invalida.\n");
             break;
-       }
+        }
     }
 
 }
@@ -191,10 +232,10 @@ void menuAdministrador(char nombreArchivo[])
 void submenuAdministradores(char nombreArchivo[])
 {
 
-        int opcion=-1;
-        system("cls");
-        do
-        {
+    int opcion=-1;
+    system("cls");
+    do
+    {
 
         printf("\n========================================\n");
         printf("        PANEL DE ADMINISTRADOR\n");
@@ -212,35 +253,40 @@ void submenuAdministradores(char nombreArchivo[])
         switch(opcion)
         {
         case 1:
-        system("cls");
-        sistemaTorneo();
-        break;
+            sistemaTorneo();
+            break;
 
         case 2:
-        system("cls");
-        //administrarJuegos()
-        break;
+            system("cls");
+            //administrarJuegos()
+            break;
 
         case 3:
-        system("cls");
-        sistemaUsuario();
-        break;
+
+            sistemaUsuario();
+            break;
 
         case 4:
-        system("cls");
-        menuAdministrador("administradores.bin");
-        break;
+
+            menuAdministrador("administradores.bin");
+            break;
 
         case 0:
-        system("cls");
-        printf("Saliendo del sistema...\n");
-        break;
+
+            printf("Saliendo del sistema...\n");
+            break;
 
         default:
-        printf("Opcion invalida.\n");
+            printf("Opcion invalida.\n");
 
             break;
         }
-        system("cls");
-    }while(opcion!=0);
+
+    }
+    while(opcion!=0);
+}
+
+Administrador* crearArregloDinamicoAdmin(int capacidad)
+{
+    return (Administrador*)calloc(capacidad,sizeof(Administrador));
 }

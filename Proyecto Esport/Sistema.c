@@ -14,7 +14,7 @@ void iniciarSistema()
 
         if (estado == ACCESO_ADMIN)
         {
-            menuAdministrador("administradores.bin");
+            submenuAdministradores("administradores.bin");
 
         }
     }
