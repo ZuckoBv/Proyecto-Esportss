@@ -23,6 +23,9 @@ void sistemaUsuario()
 
         switch(num)
         {
+        case 0:
+            return;
+            break;
         case 1:
             cargarUsuarioArchivo(nombreArchivoUsuario);
             break;

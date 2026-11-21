@@ -192,7 +192,7 @@ void submenuAdministradores(char nombreArchivo[])
 {
 
         int opcion=-1;
-
+        system("cls");
         do
         {
 
@@ -212,22 +212,27 @@ void submenuAdministradores(char nombreArchivo[])
         switch(opcion)
         {
         case 1:
+        system("cls");
         sistemaTorneo();
         break;
 
         case 2:
+        system("cls");
         //administrarJuegos()
         break;
 
         case 3:
+        system("cls");
         sistemaUsuario();
         break;
 
         case 4:
+        system("cls");
         menuAdministrador("administradores.bin");
         break;
 
         case 0:
+        system("cls");
         printf("Saliendo del sistema...\n");
         break;
 
@@ -236,6 +241,6 @@ void submenuAdministradores(char nombreArchivo[])
 
             break;
         }
-
+        system("cls");
     }while(opcion!=0);
 }

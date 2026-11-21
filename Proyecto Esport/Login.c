@@ -38,12 +38,13 @@ int login()
         switch(opcion)
         {
         case 1:
+            system("cls");
             sistemaUsuario();
             break;
 
         case 2:
 
-            FILE* temp=fopen("administradores.bin", "rb");
+            /*FILE* temp=fopen("administradores.bin", "rb");
 
             if(!temp)
             {
@@ -55,7 +56,8 @@ int login()
             {
                 fclose(temp);
             }
-
+            */
+            system("cls");
             printf("==========================\n");
             printf("  ERES UN ADMINISTRADOR?\n");
             printf("==========================\n");
@@ -88,6 +90,7 @@ int login()
             {
                 printf("Usuario o clave invalidos.\n");
             }
+
             break;
 
         case 0:

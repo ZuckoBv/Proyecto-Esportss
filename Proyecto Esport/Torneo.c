@@ -28,10 +28,12 @@ void sistemaTorneo()
         switch (opcion)
         {
         case 1:
+            system("cls");
             cargarTorneoArchivo (ARCHIVOTORNEO, ARCHIVOVIDEOJUEGO);
             break;
 
         case 2:
+            system("cls");
             mostrarTorneosArchivo (ARCHIVOTORNEO);
 
               printf ("Ingrese el ID del torneo a modificar: \n");
@@ -49,6 +51,7 @@ void sistemaTorneo()
             break;
 
         case 3:
+            system("cls");
             mostrarTorneosArchivo (ARCHIVOTORNEO);
             break;
 

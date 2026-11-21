@@ -136,7 +136,7 @@ Videojuego *agregarJuegos(int* dimensionArchi, Videojuego arregloJuegos[])
         printf("\nCantidad invalida.\n");
         return arregloJuegos;
     }
-    Videojuego *nuevoArregloJuegos = redimensionarArreglo(arregloJuegos, *dimensionArchi + cantidadNuevos);
+    Videojuego *nuevoArregloJuegos = redimensionarArregloJuegos(arregloJuegos, *dimensionArchi + cantidadNuevos);
     if (nuevoArregloJuegos == arregloJuegos && nuevoArregloJuegos == NULL)
     {
         printf("\nError al reservar memoria.\n");
