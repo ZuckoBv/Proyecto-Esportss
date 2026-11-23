@@ -6,6 +6,75 @@
 
 //carga de videojuegos hardcodeados al archivo
 
+void administarJuegos()
+{
+ int opcion;
+ int dimensionArchi = 0;
+ Videojuego *listaHardcodeados = NULL;
+ Videojuego *arregloJuegos = NULL;
+ // Verificamos si el archivo ya tiene videojuegos
+ dimensionArchi = obtenDimArchivoVideojuegos();
+ if (dimensionArchi == 0) // Si el archivo esta vacio, cargamos los hardcodeados
+ {
+  if (cargarHardcodeadosAlArchivo() == -1)
+  {
+    printf("Error al cargar los videojuegos iniciales.\n");
+    return;
+  }
+  dimensionArchi = obtenDimArchivoVideojuegos();
+  }
+  // Cargamos los videojuegos del archivo a memoria
+  listaHardcodeados = cargarArregloHardcodeados(dimensionArchi);
+  if (listaHardcodeados == NULL)
+  {
+    printf("Error al cargar el arreglo de videojuegos.\n");
+    return;
+  }
+  arregloJuegos = crearArregloJuegos(&dimensionArchi, listaHardcodeados);
+  free(listaHardcodeados);
+  if (arregloJuegos == NULL)
+  {
+   printf("Error al reservar memoria.\n");
+   return ;
+  }
+  do
+  {
+    printf("\n========== MENU DE JUEGOS ==========\n");
+    printf("[1] Ver listado de juegos.\n");
+    printf("[2] Cargar un nuevo juego.\n");
+    printf("[3] Modificar un juego.\n");
+    printf("[4] Salir.\n");
+    printf("Seleccione una opcion: ");
+    scanf("%i", &opcion);
+    if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4)
+    {
+     printf("\nOpcion invalida. Intente nuevamente.\n");
+     opcion = 0;
+     continue;
+    }
+    switch (opcion)
+    {
+     case 1:
+     mostrarJuegos(arregloJuegos, dimensionArchi);
+     break;
+     case 2:
+     arregloJuegos = agregarJuegos(&dimensionArchi,arregloJuegos);
+     break;
+     case 3:
+     modificarJuego(arregloJuegos, dimensionArchi);
+     break;
+     case 4:
+     printf("\nSaliendo del menu de juegos...\n");
+     break;
+     default:
+     printf("\nOpcion incorrecta. Intente nuevamente.\n");
+     break;
+    }
+  } while (opcion != 4);
+  free(arregloJuegos);
+  return ;
+}
+
 int cargarHardcodeadosAlArchivo()
 {
     Videojuego listadoJuegosHardcodeado[] =
@@ -304,3 +373,59 @@ void mostrarVideojuegosArchivo(char nombreArchivo[])
     fclose(arch);
 }
 
+void modificarJuegoo(Videojuego arregloJuegos[], int dimension)
+{
+  char idBuscado[10];
+  int i;
+  int encontrado = 0;
+  FILE *archivo;
+  if (arregloJuegos == NULL || dimension <= 0)
+  {
+    printf("\nNo hay videojuegos para modificar.\n");
+    return;
+  }
+  printf("\nIngrese el ID del videojuego que desea modificar: ");
+  scanf(" %9[^\n]", idBuscado);
+  getchar();
+  for (i = 0; i < dimension; i++)
+  {
+    if (strcmp(arregloJuegos[i].idJuego, idBuscado) == 0)
+    {
+     encontrado = 1;
+     printf("\nVideojuego encontrado:\n");
+     mostrarUnJuego(arregloJuegos[i]);
+     printf("\nIngrese el nuevo nombre: ");
+     scanf(" %49[^\n]", arregloJuegos[i].nombre);
+     getchar();
+     printf("Ingrese el nuevo genero: ");
+     scanf(" %29[^\n]", arregloJuegos[i].genero);
+     getchar();
+     printf("Ingrese la nueva plataforma: ");
+     scanf(" %19[^\n]", arregloJuegos[i].plataforma);
+     getchar();
+     printf("Ingrese el estado (1 = Activo / 0 = Inactivo): ");
+     scanf("%d", &arregloJuegos[i].activo);
+     getchar();
+     archivo = fopen("Juegos.bin", "wb");
+     if (archivo == NULL)
+     {
+      printf("\nError al abrir el archivo.\n");
+      return;
+     }
+     if (fwrite(arregloJuegos, sizeof(Videojuego), dimension, archivo) != dimension)
+     {
+      printf("\nError al guardar los cambios.\n");
+     }
+     else
+     {
+      printf("\nVideojuego modificado correctamente.\n");
+     }
+      fclose(archivo);
+      break;
+    }
+  }
+  if (!encontrado)
+  {
+   printf("\nNo se encontro ningun videojuego con ese ID.\n");
+  }
+}

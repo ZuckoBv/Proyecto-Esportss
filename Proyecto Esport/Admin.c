@@ -4,6 +4,7 @@
 #include "Admin.h"
 #include "Torneo.h"
 #include "Usuario.h"
+#include "gestionvideojuegos.h"
 #define DIM 30
 #define dimINC 10
 
@@ -258,7 +259,7 @@ void submenuAdministradores(char nombreArchivo[])
 
         case 2:
             system("cls");
-            //administrarJuegos()
+            administarJuegos();
             break;
 
         case 3:

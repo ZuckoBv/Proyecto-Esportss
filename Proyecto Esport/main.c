@@ -4,9 +4,6 @@
 
 int  main()
 {
-    int s;
-    s=cargarHardcodeadosAlArchivo();
-    printf("%d", s);
     iniciarSistema();
 
     return 0;

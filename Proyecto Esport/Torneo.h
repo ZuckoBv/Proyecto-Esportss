@@ -16,6 +16,7 @@ void mostrarTorneosArchivo (const char nombreArchivoTorneo []);
 int validarIdTorneo (const char nombreArchivoTorneo [], char idNuevoTorneo [] );
 int buscarVideojuegoPorId(const char nombreArchivoVideojuego[], char idVideojuego[], Videojuego *juegoDestino);
 void modificarTorneo (const char nombreArchivoTorneo [] , const char nombreArchivoVideojuego [], char idTorneo []);
+void mostarTorneosActivos(char nombreArchivoTorneo[]);
 
 
 #endif // TORNEO_H_INCLUDED
