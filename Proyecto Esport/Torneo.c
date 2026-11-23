@@ -23,7 +23,8 @@ void sistemaTorneo()
         printf("\n ");
         printf("\n  [3]  Mostrar todos los torneos ");
         printf("\n  [4]  Mostrar torneos activos ");
-        printf("\n  [5]   ");
+        printf("\n  [5]  Mostrar jugadores de un torneo ");
+        printf("\n  [6]  Mostrar torneos llenos ");
         printf("\n ");
         printf("\n");
         printf("\n  [0]  Salir");
@@ -66,6 +67,10 @@ void sistemaTorneo()
 
         case 5:
 
+            break;
+
+        case 6:
+            mostrarTorneosLlenosArchivo (ARCHIVOTORNEO);
             break;
 
         case 0:
@@ -282,7 +287,7 @@ void mostrarTorneosActivos(const char nombreArchivoTorneo[])
     }
      while (fread (&a, sizeof (Torneo), 1, buffer) == 1)
     {
-        if(a.estado=="abierto" && a.cuposDisponibles>0)
+        if( strcmpi(a.estado, "Abierto") == 0 && a.cuposDisponibles>0)
         {
             mostrarTorneo(a);
         }
@@ -291,4 +296,34 @@ void mostrarTorneosActivos(const char nombreArchivoTorneo[])
 
     //final
     fclose(buffer);
+}
+
+void mostrarTorneosLlenosArchivo (const char nombreArchivoTorneo [])
+{
+    Torneo torneo;
+    int encontrados = 0;
+
+    FILE* archivo = fopen (nombreArchivoTorneo, "rb");
+
+    if (archivo == NULL)
+    {
+        printf ("Error al intentar abrir el archivo\n");
+        return;
+    }
+
+    while (fread (&torneo, sizeof (Torneo), 1, archivo) == 1)
+    {
+        if (torneo.cuposDisponibles == 0 && (strcmpi (torneo.estado, "Abierto") == 0 ||
+                                                strcmpi (torneo.estado, "En curso") == 0))
+        {
+        mostrarTorneo (torneo);
+        encontrados++;
+        }
+    }
+
+    if (encontrados == 0)
+    {
+        printf("\nNo hay torneos llenos (abiertos o en curso).\n");
+    }
+    fclose (archivo);
 }
