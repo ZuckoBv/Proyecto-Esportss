@@ -17,8 +17,13 @@ void sistemaTorneo()
         printf("\n");
         printf("\n  [1]  Cargar nuevo torneo ");
         printf("\n  [2]  Modificar torneo");
+        printf("\n========================================");
+        printf("\n              REPORTES");
+        printf("\n========================================");
+        printf("\n ");
         printf("\n  [3]  Mostrar todos los torneos ");
         printf("\n  [4]  Mostrar torneos activos ");
+        printf("\n  [5]   ");
         printf("\n ");
         printf("\n");
         printf("\n  [0]  Salir");
@@ -56,9 +61,13 @@ void sistemaTorneo()
             mostrarTorneosArchivo (ARCHIVOTORNEO);
             break;
         case 4:
-            //LLAMA LA FUNCION DE ABAJO DEL TODO
-            mostarTorneosActivos(ARCHIVOTORNEO);
+            mostrarTorneosActivos(ARCHIVOTORNEO);
             break;
+
+        case 5:
+
+            break;
+
         case 0:
             return;
             break;
@@ -261,8 +270,8 @@ void modificarTorneo (const char nombreArchivoTorneo [] , const char nombreArchi
 
     fclose(archivo);
 }
-// FALTA TERMINAR ESTO
-void mostarTorneosActivos(char nombreArchivoTorneo[])
+
+void mostrarTorneosActivos(const char nombreArchivoTorneo[])
 {
     Torneo a;
     FILE * buffer=fopen(nombreArchivoTorneo,"rb");
@@ -273,13 +282,12 @@ void mostarTorneosActivos(char nombreArchivoTorneo[])
     }
      while (fread (&a, sizeof (Torneo), 1, buffer) == 1)
     {
-        if(a.estado=="abierto")
+        if(a.estado=="abierto" && a.cuposDisponibles>0)
         {
             mostrarTorneo(a);
         }
 
     }
-
 
     //final
     fclose(buffer);
