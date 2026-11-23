@@ -43,7 +43,7 @@ void administarJuegos()
     printf("[1] Ver listado de juegos.\n");
     printf("[2] Cargar un nuevo juego.\n");
     printf("[3] Modificar un juego.\n");
-    printf("[0] Salir.\n");
+    printf("[4] Salir.\n");
     printf("Seleccione una opcion: ");
     scanf("%i", &opcion);
     if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4)
@@ -63,14 +63,14 @@ void administarJuegos()
      case 3:
      modificarJuego(arregloJuegos, dimensionArchi);
      break;
-     case 0:
+     case 4:
      printf("\nSaliendo del menu de juegos...\n");
      break;
      default:
      printf("\nOpcion incorrecta. Intente nuevamente.\n");
      break;
     }
-  } while (opcion != 0);
+  } while (opcion != 4);
   free(arregloJuegos);
   return ;
 }
