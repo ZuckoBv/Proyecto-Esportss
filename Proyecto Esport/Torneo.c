@@ -20,7 +20,7 @@ void sistemaTorneo()
         printf("\n========================================");
         printf("\n  [3]  Mostrar todos los torneos ");
         printf("\n  [4]  Mostrar torneos activos ");
-        printf("\n  [5]  Mostrar jugadores de un torneo ");
+        //printf("\n  [5]  Mostrar jugadores de un torneo ");
         printf("\n  [6]  Mostrar torneos llenos ");
         printf("\n  [7]  Mostrar torneos por videojuego");
         printf("\n  [0]  Salir");
@@ -63,7 +63,12 @@ void sistemaTorneo()
             break;
 
         case 5:
-            //NECESITO LAS INSCRIPCIONES
+//            //NECESITO LAS INSCRIPCIONES
+//            mostrarTorneosArchivo (ARCHIVOTORNEO);
+//            printf ("Ingrese el ID del torneo: \n");
+//            while (getchar () != '\n');
+//            leerString (torneo.idTorneo, 10);
+//            verParticipantesDeTorneo (ARCHIVOTORNEO, (archivo de inscripciones), (archivo de usuarios ) , torneo.idTorneo);
             break;
 
         case 6:
@@ -433,3 +438,95 @@ int descontarCupoTorneo(const char nombreArchivoTorneo[], char idTorneo[])
     fclose(archivo);
     return -1; // No se encontro
 }
+
+
+//int listarInscriptosRecursivo(FILE *archInscripciones, const char nombreArchivoUsuarios[], char idTorneo[])
+//{
+//    Inscripcion insc;
+//
+//    if (fread(&insc, sizeof(Inscripcion), 1, archInscripciones) != 1)  //caso base/corte y lee el insc
+//    {
+//        return 0;
+//    }
+//
+//    int sumaActual = 0;
+//
+//    if (strcmp(insc.idTorneo, idTorneo) == 0 && strcmpi(insc.estado, "Cancelada") != 0)
+//    {
+//
+//        FILE *archUsuarios = fopen(nombreArchivoUsuarios, "rb");
+//        if (archUsuarios != NULL)
+//        {
+//            Usuario user;
+//            while (fread(&user, sizeof(Usuario), 1, archUsuarios) == 1)
+//            {
+//                if (strcmp(user.idUsuario, insc.idUsuario) == 0)           //compara id del usuario por el del inscrito
+//                {
+//                    printf("   * ID Usuario: %s | Nombre: %s\n", user.idUsuario, user.nombre);
+//                    break;
+//                }
+//            }
+//            fclose(archUsuarios);
+//        }
+//        sumaActual = 1;              //contador
+//    }
+//
+//    return sumaActual + listarInscriptosRecursivo(archInscripciones, nombreArchivoUsuarios, idTorneo);      //recursividad
+//}
+//
+//
+//void verParticipantesDeTorneo(const char nombreArchivoTorneo[], const char nombreArchivoInscripciones[], const char nombreArchivoUsuarios[], char idTorneo[])
+//{
+//
+//    FILE *archTorneo = fopen(nombreArchivoTorneo, "rb");
+//    if (archTorneo == NULL)
+//    {
+//        printf("Error al abrir el archivo de torneos\n");
+//        return;
+//    }
+//
+//    Torneo torneo;
+//    int torneoExiste = 0;
+//    while (fread(&torneo, sizeof(Torneo), 1, archTorneo) == 1)
+//    {
+//        if (strcmp(torneo.idTorneo, idTorneo) == 0)
+//        {
+//            torneoExiste = 1;                                //Validar torneo
+//            break;
+//        }
+//    }
+//    fclose(archTorneo);
+//
+//    if (torneoExiste == 0)
+//    {
+//        printf("\nNo se encontro ningun torneo con ese ID \n");
+//        return;
+//    }
+//
+//
+//    printf("\n========================================");
+//    printf("\n PARTICIPANTES DEL TORNEO: %s (%s)", torneo.nombre, torneo.idTorneo);
+//    printf("\n Juego: %s | Estado: %s", torneo.juego.nombre, torneo.estado);                      //Encabezado
+//    printf("\n========================================\n");
+//
+//
+//    FILE *archInsc = fopen(nombreArchivoInscripciones, "rb");
+//    if (archInsc == NULL)
+//    {
+//        printf("No hay inscripciones registradas \n");
+//        return;
+//    }
+//
+//    int totalParticipantes = listarInscriptosRecursivo(archInsc, nombreArchivoUsuarios, idTorneo);      //llama a la otra funcion, recursiva
+//    fclose(archInsc);
+//
+//    if (totalParticipantes == 0)
+//    {
+//        printf("No tiene participantes inscritos\n");
+//    }
+//    else
+//    {
+//        printf("----------------------------------------\n");
+//        printf(" Total de participantes inscritos: %d / %d\n", totalParticipantes, torneo.capacidadMaxima);
+//    }
+//}

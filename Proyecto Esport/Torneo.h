@@ -20,6 +20,8 @@ void mostrarTorneosLlenosArchivo (const char nombreArchivoTorneo []);
 int contarTorneosPorJuego(const char archivoTorneos[], const char archivoJuegos[], char idJuego[]);
 void reporteTorneosPorJuego(const char archivoTorneos[], const char archivoJuegos[]);
 int descontarCupoTorneo(const char nombreArchivoTorneo[], char idTorneo[]);
+int listarInscriptosRecursivo(FILE *archInscripciones, const char nombreArchivoUsuarios[], char idTorneo[]);
+void verParticipantesDeTorneo(const char nombreArchivoTorneo[], const char nombreArchivoInscripciones[], const char nombreArchivoUsuarios[], char idTorneo[]);
 
 
 #endif // TORNEO_H_INCLUDED
