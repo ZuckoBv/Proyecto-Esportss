@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #define ARCHIVOTORNEO "Torneo.bin"
 
 void sistemaTorneo();
@@ -18,5 +17,9 @@ int buscarVideojuegoPorId(const char nombreArchivoVideojuego[], char idVideojueg
 void modificarTorneo (const char nombreArchivoTorneo [] , const char nombreArchivoVideojuego [], char idTorneo []);
 void mostrarTorneosActivos(const char nombreArchivoTorneo[]);
 void mostrarTorneosLlenosArchivo (const char nombreArchivoTorneo []);
+int contarTorneosPorJuego(const char archivoTorneos[], const char archivoJuegos[], char idJuego[]);
+void reporteTorneosPorJuego(const char archivoTorneos[], const char archivoJuegos[]);
+
+
 
 #endif // TORNEO_H_INCLUDED

@@ -201,9 +201,9 @@ void menuAdministrador(char nombreArchivo[])
     while (opcion != 0)
     {
         printf("\n--- PANEL DE ADMINISTRADOR ---\n");
-        printf("1.Registrar nuevos administradores\n");
-        printf("2.Ver listado de administradores\n");
-        printf("0.Cerrar sesion\n");
+        printf("[1].Registrar nuevos administradores\n");
+        printf("[2].Ver listado de administradores\n");
+        printf("[0].Cerrar sesion\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
         while (getchar() != '\n');
@@ -241,11 +241,11 @@ void submenuAdministradores(char nombreArchivo[])
         printf("\n========================================\n");
         printf("        PANEL DE ADMINISTRADOR\n");
         printf("========================================\n");
-        printf("1. Administrar Torneos\n");
-        printf("2. Administrar Juegos\n");
-        printf("3. Administrar Usuarios\n");
-        printf("4. Administrar Administradores\n");
-        printf("0. Cerrar sesion\n");
+        printf("[1]. Administrar Torneos\n");
+        printf("[2]. Administrar Juegos\n");
+        printf("[3]. Administrar Usuarios\n");
+        printf("[4]. Administrar Administradores\n");
+        printf("[0]. Cerrar sesion\n");
         printf("========================================\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
@@ -258,8 +258,11 @@ void submenuAdministradores(char nombreArchivo[])
             break;
 
         case 2:
+
             system("cls");
             administarJuegos();
+
+
             break;
 
         case 3:
