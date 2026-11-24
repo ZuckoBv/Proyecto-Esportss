@@ -19,7 +19,7 @@ void mostrarTorneosActivos(const char nombreArchivoTorneo[]);
 void mostrarTorneosLlenosArchivo (const char nombreArchivoTorneo []);
 int contarTorneosPorJuego(const char archivoTorneos[], const char archivoJuegos[], char idJuego[]);
 void reporteTorneosPorJuego(const char archivoTorneos[], const char archivoJuegos[]);
-
+int descontarCupoTorneo(const char nombreArchivoTorneo[], char idTorneo[]);
 
 
 #endif // TORNEO_H_INCLUDED

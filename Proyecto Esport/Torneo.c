@@ -10,20 +10,20 @@ void sistemaTorneo()
 
     do
     {
-
+        printf("\n========================================");
+        printf("\n          SISTEMA DE TORNEOS");
+        printf("\n========================================");
         printf("\n  [1]  Cargar nuevo torneo ");
         printf("\n  [2]  Modificar torneo");
+        printf("\n========================================");
+        printf("\n              REPORTES");
+        printf("\n========================================");
         printf("\n  [3]  Mostrar todos los torneos ");
         printf("\n  [4]  Mostrar torneos activos ");
         printf("\n  [5]  Mostrar jugadores de un torneo ");
         printf("\n  [6]  Mostrar torneos llenos ");
-        printf("\n========================================");
-        printf("\n              REPORTES");
-        printf("\n========================================");
-        printf("\n ");
-        printf("\n  [7]  Reporte: Torneos por videojuego");
+        printf("\n  [7]  Mostrar torneos por videojuego");
         printf("\n  [0]  Salir");
-        printf("\n");
         printf("\n========================================");
         printf("\n  Seleccione una opcion: ");
         scanf("%d", &opcion);
@@ -63,14 +63,14 @@ void sistemaTorneo()
             break;
 
         case 5:
-
+            //NECESITO LAS INSCRIPCIONES
             break;
 
         case 6:
             mostrarTorneosLlenosArchivo (ARCHIVOTORNEO);
             break;
 
-            case 7:
+        case 7:
             while (getchar()!='\n');
             reporteTorneosPorJuego(ARCHIVOTORNEO, ARCHIVOVIDEOJUEGO);
             break;
@@ -292,7 +292,7 @@ void mostrarTorneosActivos(const char nombreArchivoTorneo[])
         printf("\nEl archivo no abrio");
         return;
     }
-     while (fread (&a, sizeof (Torneo), 1, buffer) == 1)
+    while (fread (&a, sizeof (Torneo), 1, buffer) == 1)
     {
         if( strcmpi(a.estado, "Abierto") == 0 && a.cuposDisponibles>0)
         {
@@ -321,10 +321,10 @@ void mostrarTorneosLlenosArchivo (const char nombreArchivoTorneo [])
     while (fread (&torneo, sizeof (Torneo), 1, archivo) == 1)
     {
         if (torneo.cuposDisponibles == 0 && (strcmpi (torneo.estado, "Abierto") == 0 ||
-                                                strcmpi (torneo.estado, "En curso") == 0))
+                                             strcmpi (torneo.estado, "En curso") == 0))
         {
-        mostrarTorneo (torneo);
-        encontrados++;
+            mostrarTorneo (torneo);
+            encontrados++;
         }
     }
 
@@ -392,4 +392,44 @@ void reporteTorneosPorJuego(const char archivoTorneos[], const char archivoJuego
                juego.nombre, idJuego, cantidad);
     }
 
+}
+
+int descontarCupoTorneo(const char nombreArchivoTorneo[], char idTorneo[])
+{
+    FILE *archivo = fopen(nombreArchivoTorneo, "r+b");
+    if (archivo == NULL)
+    {
+        printf("Error al intentar abrir el archivo\n");
+        return -1;
+    }
+
+    Torneo torneo;
+    while (fread(&torneo, sizeof(Torneo), 1, archivo) == 1)
+    {
+        if (strcmp(torneo.idTorneo, idTorneo) == 0)
+        {
+            if (torneo.cuposDisponibles > 0 && strcmpi(torneo.estado, "Abierto") == 0 )
+
+            {
+                torneo.cuposDisponibles--;
+                if (torneo.cuposDisponibles == 0)
+                {
+                    strcpy(torneo.estado, "En Curso");
+                }
+                fseek(archivo, -(long)sizeof(Torneo), SEEK_CUR);
+                fwrite(&torneo, sizeof(Torneo), 1, archivo);
+
+                fclose(archivo);
+                return 1;                            //Se encontro y se desconto
+            }
+            else
+            {
+                fclose(archivo);
+                return 0;      // No tiene mas cupos
+            }
+        }
+    }
+
+    fclose(archivo);
+    return -1; // No se encontro
 }
