@@ -5,6 +5,7 @@
 #include "Torneo.h"
 #include "Usuario.h"
 #include "gestionvideojuegos.h"
+#include "inscripcion.h"
 #define DIM 30
 #define dimINC 10
 
@@ -245,6 +246,7 @@ void submenuAdministradores(char nombreArchivo[])
         printf("[2]. Administrar Juegos\n");
         printf("[3]. Administrar Usuarios\n");
         printf("[4]. Administrar Administradores\n");
+        printf("[5]. Administrar Inscripciones\n");
         printf("[0]. Cerrar sesion\n");
         printf("========================================\n");
         printf("Seleccione una opcion: ");
@@ -274,7 +276,10 @@ void submenuAdministradores(char nombreArchivo[])
 
             menuAdministrador("administradores.bin");
             break;
+        case 5:
 
+            administarInscripcion();
+            break;
         case 0:
 
             printf("Saliendo del sistema...\n");

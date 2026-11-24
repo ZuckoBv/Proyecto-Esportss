@@ -37,11 +37,5 @@ typedef struct stTorneo {
     char estado[15]; // "Abierto", "En Curso", "Finalizado"
 } Torneo;
 
-typedef struct stInscripcion {
-    char idInscripcion[10];
-    char idTorneo[10];
-    char idUsuario[10];
-    Fecha fechaInscripcion;
-} Inscripcion;
 
 #endif // MODELOS_H_INCLUDED

@@ -27,15 +27,20 @@ void sistemaUsuario()
             return;
             break;
         case 1:
+            system("pause");
+            system("cls");
             cargarUsuarioArchivo(nombreArchivoUsuario);
             break;
         case 2:
+
+            system("cls");
             mostrarUsuarioArchivo(nombreArchivoUsuario);
             break;
         case 3:
             mostrarNombreUsuario(nombreArchivoUsuario);
         }
-
+        system("pause");
+        system("cls");
     }
 }
 
@@ -164,8 +169,6 @@ void mostrarUsuarioArchivo(char nombreArchivo[])
         mostrarUsuario(a);
 
     }
-    system("pause");
-    system("cls");
     //fin
     fclose(buffer);
 }
