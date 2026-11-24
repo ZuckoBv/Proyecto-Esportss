@@ -1,7 +1,7 @@
 #ifndef GESTIONVIDEOJUEGOS_H_INCLUDED
 #define GESTIONVIDEOJUEGOS_H_INCLUDED
 #include "modelos.h"
-#define ARCHIVOVIDEOJUEGO "Videojuegos.bin"
+#define ARCHIVOVIDEOJUEGO "Juegos.bin"
 void administarJuegos();
 int cargarHardcodeadosAlArchivo();
 int obtenDimArchivoVideojuegos();
@@ -12,7 +12,7 @@ Videojuego *redimensionarArregloJuegos(Videojuego *arregloJuegos, int nuevaDimen
 Videojuego agregarJuego(int nuevaDim);
 void modificarJuego(Videojuego arregloJuegos[], int dimension);
 void mostrarJuegos(Videojuego arregloJuegos[], int dimension);
-void mostrarVideojuegosArchivo(char nombreArchivo[]);
+void mostrarVideojuegosArchivo(const char nombreArchivo[]);
 void modificarJuego(Videojuego arregloJuegos[], int dimension);
 void mostrarUnJuego(Videojuego juego);
 

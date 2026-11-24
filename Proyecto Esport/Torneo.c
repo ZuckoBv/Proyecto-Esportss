@@ -11,6 +11,7 @@ void sistemaTorneo()
     const char nombreArchivoUsuario[]="usuario.bin";
     const char nombreArchivoInscripcion[] = "inscripcion.bin";
 
+
     do
     {
         printf("\n========================================");
@@ -23,7 +24,7 @@ void sistemaTorneo()
         printf("\n========================================");
         printf("\n  [3]  Mostrar todos los torneos ");
         printf("\n  [4]  Mostrar torneos activos ");
-        //printf("\n  [5]  Mostrar jugadores de un torneo ");
+        printf("\n  [5]  Mostrar jugadores de un torneo ");
         printf("\n  [6]  Mostrar torneos llenos ");
         printf("\n  [7]  Mostrar torneos por videojuego");
         printf("\n  [0]  Salir");
@@ -41,7 +42,7 @@ void sistemaTorneo()
             system("cls");
             mostrarTorneosArchivo (ARCHIVOTORNEO);
 
-            printf ("Ingrese el ID del torneo a modificar: \n");
+            printf ("\nIngrese el ID del torneo a modificar: \n");
             while (getchar () != '\n');
             leerString (torneo.idTorneo, 10);
             valido = validarIdTorneo (ARCHIVOTORNEO, torneo.idTorneo);
@@ -67,7 +68,7 @@ void sistemaTorneo()
 
         case 5:
             mostrarTorneosArchivo (ARCHIVOTORNEO);
-            printf ("Ingrese el ID del torneo: \n");
+            printf ("\nIngrese el ID del torneo: \n");
             while (getchar () != '\n');
             leerString (torneo.idTorneo, 10);
             verParticipantesDeTorneo (ARCHIVOTORNEO, nombreArchivoInscripcion, nombreArchivoUsuario, torneo.idTorneo);
@@ -250,6 +251,7 @@ int buscarVideojuegoPorId(const char nombreArchivoVideojuego[], char idVideojueg
     Videojuego aux;
     while (fread(&aux, sizeof(Videojuego), 1, archivo) == 1)
     {
+
         if (strcmp(aux.idJuego, idVideojuego) == 0)
         {
             *juegoDestino = aux;

@@ -351,7 +351,7 @@ void modificarJuego(Videojuego arregloJuegos[], int dimension)
     }
 }
 
-void mostrarVideojuegosArchivo(char nombreArchivo[])
+void mostrarVideojuegosArchivo(const char nombreArchivo[])
 {
     FILE *arch = fopen(nombreArchivo, "rb");
     Videojuego aux;
